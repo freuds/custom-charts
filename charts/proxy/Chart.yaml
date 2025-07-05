@@ -1,0 +1,15 @@
+apiVersion: v2
+appVersion: 1.0.0
+description: Ingress for multi-ProxyPass
+icon: https://www.flaticon.com/free-icons/proxy"
+name: proxy
+version: 1.0.0
+type: application
+home: https://github.com/freuds/custom-charts
+sources:
+  - https://github.com/freuds/custom-charts
+keywords:
+  - proxy
+  - ingress
+maintainers:
+  - name: Freuds

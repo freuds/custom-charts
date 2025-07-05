@@ -1,0 +1,10 @@
+# IDE
+*.code-workspace
+.DS_Store
+**.idea/*
+.idea
+.vscode
+
+# Helm
+**/charts/*.tgz
+charts/**/charts

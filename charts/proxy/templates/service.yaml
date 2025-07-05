@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Values.namespace }}
+  name: {{ include "proxy.name" . }}
+  labels:
+    {{- include "proxy.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  externalName: {{ .Values.service.externalName }}
+  ports:
+    - name: {{ .Values.service.name }}
+      port: {{ .Values.service.port }}
+      protocol: TCP
+      targetPort: {{ .Values.service.targetPort }}
+  selector:
+    {{- include "proxy.selectorLabels" . | nindent 4 }}

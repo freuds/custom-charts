@@ -1,0 +1,30 @@
+version: '3'
+
+tasks:
+  lint:
+    desc: Lint Helm charts
+    cmds:
+      - ct lint --config charts/ct.yaml
+
+  lint-all:
+    desc: Lint and validate all Helm charts
+    cmds:
+      - task: lint
+      - helm lint charts/cronjob
+      - helm lint charts/proxy
+      - >
+        helm template charts/cronjob |
+        kubeconform -kubernetes-version 1.26.0
+        -schema-location default
+        -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json'
+      - >
+        helm template charts/proxy |
+        kubeconform -kubernetes-version 1.26.0
+        -schema-location default
+        -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json'
+
+  update-deps:
+    desc: Update Helm dependencies
+    cmds:
+      - helm dependency update charts/cronjob
+      - helm dependency update charts/proxy
