@@ -3,9 +3,9 @@ entries:
   cronjob:
   - apiVersion: v2
     appVersion: 0.1.3
-    created: "2025-07-06T15:17:24.571645+02:00"
+    created: "2025-07-06T14:15:45.572017912Z"
     description: A Helm chart for cronjob Kubernetes
-    digest: f3c2a0f7cd83ee6e356ff3316828fba7ba429a61fbceef89b447113aea3b327b
+    digest: 9ee8477a9907b188f5de4377f89ced7f6fd793746b0fcad9564f8b5d07585f87
     home: https://freuds.github.io/custom-charts/
     icon: https://freuds.github.io/custom-charts/imgs/cronjob.png
     keywords:
@@ -21,7 +21,7 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: 0.1.3
-    created: "2025-07-06T15:17:24.569162+02:00"
+    created: "2025-07-06T14:15:45.571784855Z"
     description: A Helm chart for cronjob Kubernetes
     digest: 380370db38cf455e5fbee7f365b33a146791f781f269c6e27577d91ecbf56ba9
     name: cronjob
@@ -32,9 +32,9 @@ entries:
   proxy:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-07-06T15:17:24.573698+02:00"
+    created: "2025-07-06T14:15:45.572295581Z"
     description: A Helm chart for Ingress with ExternalName
-    digest: df3cd5c79a22ecee6da4710ea9240597f592943a3f593ab154f6f1e3722a6b68
+    digest: 2453b2acbd2ee37ac74efbabc01afb34f9715eafe0793ab90ee83d1a9467bdea
     home: https://freuds.github.io/custom-charts
     icon: https://freuds.github.io/custom-charts/imgs/proxy.png
     keywords:
@@ -49,4 +49,4 @@ entries:
     urls:
     - https://freuds.github.io/custom-charts/proxy-1.0.0.tgz
     version: 1.0.0
-generated: "2025-07-06T15:17:24.567054+02:00"
+generated: "2025-07-06T14:15:45.571486397Z"
