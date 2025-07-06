@@ -1,13 +1,13 @@
 apiVersion: v2
-appVersion: 1.0.0
-description: Ingress for multi-ProxyPass
-icon: https://www.flaticon.com/free-icons/proxy"
+appVersion: "1.0.0"
+description: A Helm chart for Ingress with ExternalName
+icon: https://freuds.github.io/custom-charts/imgs/proxy.png
 name: proxy
 version: 1.0.0
 type: application
-home: https://github.com/freuds/custom-charts
+home: https://freuds.github.io/custom-charts
 sources:
-  - https://github.com/freuds/custom-charts
+  - https://freuds.github.io/custom-charts
 keywords:
   - proxy
   - ingress

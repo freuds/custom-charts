@@ -2,5 +2,13 @@ apiVersion: v2
 name: cronjob
 description: A Helm chart for cronjob Kubernetes
 type: application
-version: 0.1.0
+version: 1.0.0
 appVersion: "0.1.3"
+icon: https://freuds.github.io/custom-charts/imgs/cronjob.png
+home: https://freuds.github.io/custom-charts/
+sources:
+  - https://freuds.github.io/custom-charts
+keywords:
+  - cronjob
+maintainers:
+  - name: Fred Willien

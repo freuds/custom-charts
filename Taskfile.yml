@@ -9,17 +9,25 @@ tasks:
 
   generate:
     desc: Generate Helm charts
+    silent: true
     cmds:
-      - helm package charts/cronjob
-      - helm package charts/proxy
+      - |
+        for chart in charts/*/Chart.yaml; do
+          chart_dir=$(dirname "$chart")
+          helm dependency update "$chart_dir" || true
+          helm package "$chart_dir" -d docs/
+        done
+      - helm repo index docs/ --url "https://freuds.github.io/custom-charts/" --merge docs/index.yaml
 
   lint:
     desc: Lint Helm charts
+    silent: true
     cmds:
       - ct lint --config charts/ct.yaml
 
   lint-all:
     desc: Lint and validate all Helm charts
+    silent: true
     cmds:
       - task: lint
       - helm lint charts/cronjob

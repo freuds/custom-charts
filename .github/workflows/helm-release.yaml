@@ -36,7 +36,7 @@ jobs:
           helm repo index docs/ --url "https://freuds.github.io/custom-charts/"
 
       - name: Commit and push changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: 'ci: package helm charts and update index.yaml'
           branch: main

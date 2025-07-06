@@ -13,20 +13,6 @@ Ce dépôt contient des charts Helm personnalisés, packagés et publiés automa
 - `Taskfile.yml` : Tâches pour automatiser le lint, la génération et la validation
 - `.github/workflows/helm-release.yaml` : CI GitHub Actions pour packager et publier les charts
 
-## Charts disponibles
-
-### cronjob
-
-- **Description** : Chart Helm pour déployer des CronJobs Kubernetes
-- **Version** : 0.1.0
-- **AppVersion** : 0.1.3
-
-### proxy
-
-- **Description** : Ingress pour multi-ProxyPass
-- **Version** : 1.0.0
-- **AppVersion** : 1.0.0
-
 ## Automatisation CI
 
 À chaque push sur `main`, les charts sont automatiquement packagés dans `docs/` et l'`index.yaml` est mis à jour. Le repo Helm est ainsi prêt à être utilisé comme source externe.
@@ -52,5 +38,3 @@ task generate
 ```
 
 ---
-
-Pour toute contribution, merci de suivre les bonnes pratiques Helm et de valider les charts avec les outils fournis.
