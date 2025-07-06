@@ -1,14 +1,13 @@
 ---
-namespace: proxy
+namespace: default
 nameOverride:
-fullnameOverride:
 
 service:
   name: proxy
   type: ExternalName
-  port: 10200
-  targetPort: 32400
-  externalName: 127.0.0.1
+  port: 10000
+  targetPort: 20000
+  externalName: 10.0.0.1
 
 serviceAccount:
   # Specifies whether a service account should be created

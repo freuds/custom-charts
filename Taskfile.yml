@@ -1,6 +1,12 @@
 version: '3'
 
 tasks:
+  default:
+    desc: "Display all available tasks for this project"
+    silent: true
+    cmds:
+      - task --list-all
+
   lint:
     desc: Lint Helm charts
     cmds:
