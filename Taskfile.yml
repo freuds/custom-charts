@@ -7,6 +7,12 @@ tasks:
     cmds:
       - task --list-all
 
+  generate:
+    desc: Generate Helm charts
+    cmds:
+      - helm package charts/cronjob
+      - helm package charts/proxy
+
   lint:
     desc: Lint Helm charts
     cmds:
