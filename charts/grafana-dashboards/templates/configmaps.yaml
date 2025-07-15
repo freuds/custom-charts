@@ -1,0 +1,24 @@
+{{- $namespace := .Release.Namespace -}}
+{{- $releaseName := .Chart.Name -}}
+{{- $releaseVersion := .Chart.Version -}}
+{{ $files := .Files }}
+{{- if .Values.customDashboards -}}
+{{- range $dashboard, $attr := .Values.customDashboards -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ printf "%s-%s" $releaseName $dashboard }}
+  namespace: {{ $namespace }}
+  labels:
+    {{- include "grafana-dashboards.labels" $ | nindent 4 }}
+    grafana_dashboard: "true"
+  {{- if $attr.folder }}
+  annotations:
+    k8s-sidecar-target-directory: {{ $attr.folder }}
+  {{- end }}
+data:
+{{ print $dashboard | indent 2 }}.json:
+{{ toYaml ( $files.Get $attr.file ) | indent 4 }}
+---
+{{ end }}
+{{ end }}

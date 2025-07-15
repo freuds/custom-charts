@@ -13,6 +13,10 @@ Ce dépôt contient des charts Helm personnalisés, packagés et publiés automa
 - `Taskfile.yml` : Tâches pour automatiser le lint, la génération et la validation
 - `.github/workflows/helm-release.yaml` : CI GitHub Actions pour packager et publier les charts
 
+## Déclaration d'un nouveau chart
+
+Il suffit de le déclarer dans le fichier `charts/ct.yaml` pour qu'il soit pris en compte.
+
 ## Automatisation CI
 
 À chaque push sur `main`, les charts sont automatiquement packagés dans `docs/` et l'`index.yaml` est mis à jour. Le repo Helm est ainsi prêt à être utilisé comme source externe.

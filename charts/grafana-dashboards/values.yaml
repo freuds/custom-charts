@@ -1,0 +1,11 @@
+# Default values for grafana-dashboards.
+#namespace: grafana
+
+nameOverride:
+
+# annotations:
+
+customDashboards: {}
+#   grafana:
+#     file: dashboards/grafana.json
+#     folder: grafana

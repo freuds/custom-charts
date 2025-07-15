@@ -3,9 +3,9 @@ entries:
   cronjob:
   - apiVersion: v2
     appVersion: 0.1.3
-    created: "2025-07-06T15:05:48.520764012Z"
+    created: "2025-07-15T21:07:22.020092+02:00"
     description: A Helm chart for cronjob Kubernetes
-    digest: ab9013a64171b2e377b2262a490a46d6e39b33e1169ef2b7501f22f409dc5d6c
+    digest: 20100e4155c5f315fc02d88a87d4b15a3237beaccbbc7843310bd3696487e3eb
     home: https://freuds.github.io/custom-charts/
     icon: https://freuds.github.io/custom-charts/imgs/cronjob.png
     keywords:
@@ -21,7 +21,7 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: 0.1.3
-    created: "2025-07-06T15:05:48.520333696Z"
+    created: "2025-07-15T21:07:22.015938+02:00"
     description: A Helm chart for cronjob Kubernetes
     digest: 380370db38cf455e5fbee7f365b33a146791f781f269c6e27577d91ecbf56ba9
     name: cronjob
@@ -29,12 +29,32 @@ entries:
     urls:
     - https://freuds.github.io/custom-charts/cronjob-0.1.0.tgz
     version: 0.1.0
+  grafana-dashboards:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-07-15T21:07:22.025227+02:00"
+    description: A Helm chart for deploying Grafana Dashboars as configMap in Kubernetes
+    digest: df8c043fe82f894bc5e0544b9e49461a2f52ce19843ea5cf50bb1e29032da92f
+    home: https://freuds.github.io/custom-charts
+    icon: https://freuds.github.io/custom-charts/imgs/grafana-dashboards.png
+    keywords:
+    - grafana
+    - dashboards
+    maintainers:
+    - name: Freuds
+    name: grafana-dashboards
+    sources:
+    - https://freuds.github.io/custom-charts
+    type: application
+    urls:
+    - https://freuds.github.io/custom-charts/grafana-dashboards-0.1.1.tgz
+    version: 0.1.1
   proxy:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-07-06T15:05:48.521262795Z"
+    created: "2025-07-15T21:07:22.02822+02:00"
     description: A Helm chart for Ingress with ExternalName
-    digest: 42a5a3f0cba6ad261ed12a8ec499fda199e5c65b8d4ff9ffcddc166fdc6d382a
+    digest: 337a95c9eb87b0f75621bd43e455b041d4ee31adfd199dbf633c94d1d47828e6
     home: https://freuds.github.io/custom-charts
     icon: https://freuds.github.io/custom-charts/imgs/proxy.png
     keywords:
@@ -49,4 +69,4 @@ entries:
     urls:
     - https://freuds.github.io/custom-charts/proxy-1.0.0.tgz
     version: 1.0.0
-generated: "2025-07-06T15:05:48.519778305Z"
+generated: "2025-07-15T21:07:22.010906+02:00"

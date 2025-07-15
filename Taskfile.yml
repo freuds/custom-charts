@@ -26,25 +26,23 @@ tasks:
       - ct lint --config charts/ct.yaml
 
   lint-all:
-    desc: Lint and validate all Helm charts
+    desc: Lint et valide dynamiquement tous les charts listés dans chart-dirs de ct.yaml
     silent: true
     cmds:
       - task: lint
-      - helm lint charts/cronjob
-      - helm lint charts/proxy
-      - >
-        helm template charts/cronjob |
-        kubeconform -kubernetes-version 1.26.0
-        -schema-location default
-        -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json'
-      - >
-        helm template charts/proxy |
-        kubeconform -kubernetes-version 1.26.0
-        -schema-location default
-        -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json'
+      - |
+        for chart in $(yq '.chart-dirs[]' charts/ct.yaml); do
+          helm lint charts/$chart
+          helm template charts/$chart | \
+            kubeconform -kubernetes-version 1.26.0 \
+            -schema-location default \
+            -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json'
+        done
 
   update-deps:
     desc: Update Helm dependencies
     cmds:
-      - helm dependency update charts/cronjob
-      - helm dependency update charts/proxy
+      - |
+        for chart in $(yq '.chart-dirs[]' charts/ct.yaml); do
+          helm dependency update charts/$chart
+        done

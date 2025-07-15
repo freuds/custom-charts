@@ -4,9 +4,10 @@ target-branch: main
 chart-dirs:
   - cronjob
   - proxy
+  - grafana-dashboards
 
 chart-repos:
-  - bitnami=https://freuds.github.io/custom-charts
+  - custom-charts=https://freuds.github.io/custom-charts
 
 lint-conf: lintconf.yaml
 validate-maintainers: false
