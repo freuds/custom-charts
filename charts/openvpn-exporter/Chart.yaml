@@ -1,0 +1,17 @@
+apiVersion: v2
+appVersion: "v0.3.2"
+description: Prometheus SNMP Exporter
+name: openvpn-exporter
+icon: https://freuds.github.io/custom-charts/imgs/openvpn-exporter.png
+type: application
+version: 1.0.0
+home: https://freuds.github.io/custom-charts
+sources:
+  - https://freuds.github.io/custom-charts
+keywords:
+- prometheus
+- openvpn
+- monitoring
+maintainers:
+  - email: fred@freuds.fr
+    name: Freuds

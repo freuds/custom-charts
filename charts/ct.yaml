@@ -5,6 +5,7 @@ chart-dirs:
   - cronjob
   - proxy
   - grafana-dashboards
+  - openvpn-exporter
 
 chart-repos:
   - custom-charts=https://freuds.github.io/custom-charts
