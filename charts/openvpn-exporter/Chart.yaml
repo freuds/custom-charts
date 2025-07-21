@@ -1,6 +1,6 @@
 apiVersion: v2
 appVersion: "v0.3.2"
-description: Prometheus SNMP Exporter
+description: Prometheus OpenVPN Exporter
 name: openvpn-exporter
 icon: https://freuds.github.io/custom-charts/imgs/openvpn-exporter.png
 type: application
