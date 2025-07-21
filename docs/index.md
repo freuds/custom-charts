@@ -17,7 +17,7 @@
 ### grafana-dashboards
 
 - **Description** : Dashboards for Grafana
-- **Version** : 1.1.2
+- **Version** : 1.1.3
 - **AppVersion** : 1.0.0
 
 ### openvpn-exporter
