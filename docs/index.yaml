@@ -3,9 +3,9 @@ entries:
   cronjob:
   - apiVersion: v2
     appVersion: 0.1.3
-    created: "2025-07-21T19:11:18.573767913Z"
+    created: "2025-07-21T19:23:52.897393746Z"
     description: A Helm chart for cronjob Kubernetes
-    digest: 7ca4e6e68fa8d223acc9b09e52460c55c11b59611924dc92d4744976ca1bb578
+    digest: 3434449d2884647778e4e61b3741254bd9b6ae82c38a14142bbbef157d5c8c26
     home: https://freuds.github.io/custom-charts/
     icon: https://freuds.github.io/custom-charts/imgs/cronjob.png
     keywords:
@@ -22,7 +22,7 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: 0.1.3
-    created: "2025-07-21T19:11:18.573548991Z"
+    created: "2025-07-21T19:23:52.89718689Z"
     description: A Helm chart for cronjob Kubernetes
     digest: 380370db38cf455e5fbee7f365b33a146791f781f269c6e27577d91ecbf56ba9
     name: cronjob
@@ -33,9 +33,9 @@ entries:
   grafana-dashboards:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-07-21T19:11:18.580847144Z"
+    created: "2025-07-21T19:23:52.904169684Z"
     description: A Helm chart for deploying Grafana Dashboars as configMap in Kubernetes
-    digest: 61675dbeeae07ac9b1d5d4e50ab2782e1a7a600f385e34b634cac4c5724878c1
+    digest: e81da2b32c5329aabaa98b80eeae96c00c324654b9088b831e9ec0e223aa3887
     home: https://freuds.github.io/custom-charts
     icon: https://freuds.github.io/custom-charts/imgs/grafana-dashboards.png
     keywords:
@@ -53,7 +53,7 @@ entries:
     version: 1.1.2
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-07-21T19:11:18.577469824Z"
+    created: "2025-07-21T19:23:52.900784278Z"
     description: A Helm chart for deploying Grafana Dashboars as configMap in Kubernetes
     digest: e0c224921375e54c294ff5ed57c65dd4e994e72d912326c9ce678d40ed410b5a
     home: https://freuds.github.io/custom-charts
@@ -73,9 +73,9 @@ entries:
   openvpn-exporter:
   - apiVersion: v2
     appVersion: v0.3.2
-    created: "2025-07-21T19:11:18.582150953Z"
-    description: Prometheus SNMP Exporter
-    digest: 2a3da6570aae821a8c095c8273e0b4a39fc0e9ae6fc2444fa59b61593cd87ef8
+    created: "2025-07-21T19:23:52.905492123Z"
+    description: Prometheus OpenVPN Exporter
+    digest: bdc62b4efcd3a82d2ae950a3f2c6c8434ef108b224cd095b889401531c53fe3d
     home: https://freuds.github.io/custom-charts
     icon: https://freuds.github.io/custom-charts/imgs/openvpn-exporter.png
     keywords:
@@ -94,7 +94,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: v0.3.2
-    created: "2025-07-21T19:11:18.581618039Z"
+    created: "2025-07-21T19:23:52.904988061Z"
     description: Prometheus SNMP Exporter
     digest: a7a89e8ca3e98d305e3284589b35154c7e2965c61e06ec5ee72eea39894417d3
     home: https://freuds.github.io/custom-charts
@@ -116,9 +116,9 @@ entries:
   proxy:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-07-21T19:11:18.58245234Z"
+    created: "2025-07-21T19:23:52.90576905Z"
     description: A Helm chart for Ingress with ExternalName
-    digest: 6e4147a5f610dae9a0e56ca2d12ac2281f0086a718c3b65e8a981e0178c38f0a
+    digest: b98c7995d00fd6f8362be77ee541e74d004760365b737c31372c035a52abe7d6
     home: https://freuds.github.io/custom-charts
     icon: https://freuds.github.io/custom-charts/imgs/proxy.png
     keywords:
@@ -133,4 +133,4 @@ entries:
     urls:
     - https://freuds.github.io/custom-charts/proxy-1.0.0.tgz
     version: 1.0.0
-generated: "2025-07-21T19:11:18.573275376Z"
+generated: "2025-07-21T19:23:52.896893762Z"
