@@ -4,7 +4,7 @@ description: A Helm chart for deploying Grafana Dashboars as configMap in Kubern
 name: grafana-dashboards
 icon: https://freuds.github.io/custom-charts/imgs/grafana-dashboards.png
 type: application
-version: 1.1.3
+version: 1.1.4
 home: https://freuds.github.io/custom-charts
 sources:
   - https://freuds.github.io/custom-charts
