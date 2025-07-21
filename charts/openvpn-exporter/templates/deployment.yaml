@@ -24,9 +24,6 @@ spec:
       nodeSelector:
 {{ toYaml .Values.nodeSelector | indent 8 }}
     {{- end }}
-    {{- if .Values.priorityClassName }}
-      priorityClassName: {{ .Values.priorityClassName }}
-    {{- end }}
     {{- if .Values.affinity }}
       affinity:
 {{ toYaml .Values.affinity | indent 8 }}
@@ -71,35 +68,9 @@ spec:
           readinessProbe:
             {{- toYaml .Values.readinessProbe | trim | nindent 12 }}
           volumeMounts:
-          {{- range .Values.extraConfigmapMounts }}
-            - name: {{ .name }}
-              mountPath: {{ .mountPath }}
-              subPath: {{ .subPath | default "" }}
-              readOnly: {{ .readOnly }}
-          {{- end }}
-          {{- range .Values.extraSecretMounts }}
-            - name: {{ .name }}
-              mountPath: {{ .mountPath }}
-              subPath: {{ .subPath }}
-              readOnly: {{ .readOnly }}
-          {{- end }}
           {{- with .Values.extraVolumeMounts }}
           {{ toYaml . | nindent 12 }}
           {{- end }}
-      {{- if .Values.config }}
-        - name: configmap-reload
-          image: "{{ .Values.configmapReload.image.repository }}:{{ .Values.configmapReload.image.tag }}"
-          imagePullPolicy: "{{ .Values.configmapReload.image.pullPolicy }}"
-          args:
-            - --watched-dir=/etc/config
-            - --reload-url=http://localhost:{{ .Values.service.port }}/-/reload
-          resources:
-{{ toYaml .Values.configmapReload.resources | indent 12 }}
-          volumeMounts:
-            - mountPath: /etc/config
-              name: config
-              readOnly: true
-      {{- end }}
       {{- if .Values.imagePullSecrets }}
       imagePullSecrets:
 {{ toYaml .Values.imagePullSecrets | indent 8 }}
@@ -109,18 +80,6 @@ spec:
 {{ toYaml .Values.securityContext | indent 8 }}
       {{- end }}
       volumes:
-      {{- range .Values.extraConfigmapMounts }}
-        - name: {{ .name }}
-          configMap:
-            name: {{ .configMap }}
-            defaultMode: {{ .defaultMode }}
-      {{- end }}
-      {{- range .Values.extraSecretMounts }}
-        - name: {{ .name }}
-          secret:
-            secretName: {{ .secretName }}
-            defaultMode: {{ .defaultMode }}
-      {{- end }}
       {{- with .Values.extraVolumes }}
       {{ toYaml . | nindent 8 }}
       {{- end }}

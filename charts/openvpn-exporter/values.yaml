@@ -3,9 +3,9 @@ restartPolicy: Always
 kind: Deployment
 
 image:
-  repository: freuds2k/openvpn_exporter
+  repository: openvpn_exporter
   # if not set appVersion field from Chart.yaml is used
-  tag: v0.3.2
+  tag: ""
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -13,9 +13,6 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 topologySpreadConstraints: []
-
-## Assign a PriorityClassName to pods if set
-# priorityClassName: ""
 
 ## Provide a namespace to substitude for the namespace on resources
 namespaceOverride: ""
@@ -36,14 +33,6 @@ containerSecurityContext:
 customLabels: {}
   # app: openvpn-exporter
 
-extraConfigmapMounts: []
-  # - name: openvpn-exporter-configmap
-  #   mountPath: /run/secrets/openvpn-exporter
-  #   subPath: snmp.yaml # (optional)
-  #   configMap: openvpn-exporter-configmap-configmap
-  #   readOnly: true
-  #   defaultMode: 420
-
 ## Additional init containers
 # These will be added to the openvpn-exporter pod.
 extraInitContainers: []
@@ -51,14 +40,6 @@ extraInitContainers: []
   #   image: busybox:1.28
   #   command: [ 'sh', '-c', "sleep 10; done" ]
 
-## Additional secret mounts
-# Defines additional mounts with secrets. Secrets must be manually created in the namespace.
-extraSecretMounts: []
-  # - name: secret-files
-  #   mountPath: /run/secrets/openvpn-exporter
-  #   secretName: openvpn-exporter-secret-files
-  #   readOnly: true
-  #   defaultMode: 420
 
 # Additional volumes, e.g. for secrets used in an extraContainer
 extraVolumes: []
@@ -115,27 +96,7 @@ envFrom: []
 replicas: 1
 
 # Uncomment to set a specific revisionHistoryLimit. Defaults to 10 as per Kubernetes API if not set.
-# revisionHistoryLimit: 3
-
-## Monitors ConfigMap changes and POSTs to a URL
-## Ref: https://github.com/jimmidyson/configmap-reload
-##
-configmapReload:
-  ## configmap-reload container name
-  ##
-  name: configmap-reload
-
-  ## configmap-reload container image
-  ##
-  image:
-    repository: quay.io/prometheus-operator/prometheus-config-reloader
-    tag: v0.71.2
-    pullPolicy: IfNotPresent
-
-  ## configmap-reload resource requests and limits
-  ## Ref: http://kubernetes.io/docs/user-guide/compute-resources/
-  ##
-  resources: {}
+revisionHistoryLimit: 3
 
 # Enable this if you're using https://github.com/prometheus-operator/prometheus-operator
 # A service monitor will be created per each item in serviceMonitor.params[]
@@ -195,20 +156,10 @@ serviceMonitor:
     labels: {}
     path: /metrics
     scheme: http
+    port: ""
     tlsConfig: {}
     interval: 30s
     scrapeTimeout: 30s
-
-# Extra manifests to deploy as an array
-extraManifests: []
-  # - |
-  #   apiVersion: v1
-  #   kind: ConfigMap
-  #   metadata:
-  #   labels:
-  #     name: prometheus-extra
-  #   data:
-  #     extra-data: "value"
 
 strategy:
   rollingUpdate:

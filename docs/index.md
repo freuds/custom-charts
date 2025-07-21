@@ -23,7 +23,7 @@
 ### openvpn-exporter
 
 - **Description** : OpenVPN exporter for Prometheus
-- **Version** : 1.0.0
+- **Version** : 1.0.1
 - **AppVersion** : v0.3.2
 
 ## Utilisation du repo Helm

@@ -16,9 +16,6 @@ spec:
     interval: {{ .Values.serviceMonitor.selfMonitor.interval }}
     scrapeTimeout: {{ .Values.serviceMonitor.selfMonitor.scrapeTimeout }}
     scheme: {{ .Values.serviceMonitor.selfMonitor.scheme }}
-    {{- with .Values.serviceMonitor.selfMonitor.port }}
-    port: {{ . }}
-    {{- end }}
     {{- if .Values.serviceMonitor.selfMonitor.additionalMetricsRelabels }}
     metricRelabelings:
       {{- toYaml .Values.serviceMonitor.selfMonitor.additionalMetricsRelabels | nindent 6 }}
@@ -38,5 +35,4 @@ spec:
   namespaceSelector:
     matchNames:
       - {{ template "openvpn-exporter.namespace" $ }}
-
 {{- end }}
