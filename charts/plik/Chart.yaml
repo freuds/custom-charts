@@ -1,0 +1,17 @@
+apiVersion: v2
+appVersion: "1.3.8"
+version: 1.0.0
+name: plik
+icon: https://freuds.github.io/custom-charts/imgs/plik.png
+description: Helm Chart for plik application
+type: application
+home: https://freuds.github.io/custom-charts
+sources:
+  - https://freuds.github.io/custom-charts
+keywords:
+- plik
+- storage
+maintainers:
+  - email: fred@freuds.fr
+    name: Freuds
+

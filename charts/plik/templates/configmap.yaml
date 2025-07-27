@@ -1,0 +1,12 @@
+{{- if .Values.config }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "plik.fullname" . }}-config
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "plik.labels" . | nindent 4 }}
+data:
+  plikd.cfg: |
+{{ .Values.config | indent 4 }}
+{{- end }}
