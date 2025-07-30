@@ -6,7 +6,7 @@ chart-dirs:
   - proxy
   - grafana-dashboards
   - openvpn-exporter
-  - plik
+  - ihm
 
 chart-repos:
   - custom-charts=https://freuds.github.io/custom-charts

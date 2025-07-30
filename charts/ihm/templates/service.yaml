@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "plik.fullname" . }}
+  name: {{ include "ihm.fullname" . }}
   labels:
-    {{- include "plik.labels" . | nindent 4 }}
+    {{- include "ihm.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "plik.selectorLabels" . | nindent 4 }}
+    {{- include "ihm.selectorLabels" . | nindent 4 }}
