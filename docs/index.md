@@ -26,11 +26,11 @@
 - **Version** : 1.0.1
 - **AppVersion** : v0.3.2
 
-### plik
+### ihm
 
-- **Description** : Helm Chart for plik application
+- **Description** : A Generic IHM Helm chart for Kubernetes
 - **Version** : 1.0.0
-- **AppVersion** : 1.3.8
+- **AppVersion** : 1.16.0
 
 ## Utilisation du repo Helm
 
