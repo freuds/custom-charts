@@ -32,6 +32,12 @@
 - **Version** : 1.0.0
 - **AppVersion** : 1.16.0
 
+### gatus
+
+- **Description** : A Helm chart for Gatus Application
+- **Version** : 1.3.0
+- **AppVersion** : v5.18.1
+
 ## Utilisation du repo Helm
 
 ```sh
