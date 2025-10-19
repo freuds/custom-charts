@@ -7,12 +7,17 @@ on:
     paths:
       - 'charts/**'
       - '.github/workflows/helm-release.yaml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'charts/**'
 
 permissions:
   contents: write
 
 jobs:
-  release:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -37,6 +42,27 @@ jobs:
       - name: Generate Helm index.yaml
         run: |
           helm repo index docs/ --url "https://freuds.github.io/custom-charts/"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: helm-charts
+          path: docs/
+          retention-days: 1
+
+  publish:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: helm-charts
+          path: docs/
 
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v6
