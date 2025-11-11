@@ -47,3 +47,18 @@ gateway:
     name: http
     protocol: HTTP
     port: 80
+  # Gateway metadata annotations
+  annotations: {}
+  # Annotations to add on the generated HTTPRoute
+  httpRouteAnnotations: {}
+  # TLS configuration for the listener (Gateway API certificateRefs)
+  listenerTLS:
+    enabled: false
+    # list of certificateRefs: each item is an object with name/namespace/kind (namespace optional)
+    certificateRefs: []
+
+expose:
+  # Type of exposure to generate. Allowed values: "", "ingress", "gateway".
+  # If empty, the chart will use the legacy booleans `ingress.enabled` or `gateway.enabled`.
+  # When set, do NOT set `ingress.enabled` or `gateway.enabled` to avoid conflicts.
+  type: ""

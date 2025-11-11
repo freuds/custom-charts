@@ -3,9 +3,9 @@ entries:
   cronjob:
   - apiVersion: v2
     appVersion: 0.1.3
-    created: "2025-11-11T18:22:58.225965+01:00"
+    created: "2025-11-11T18:47:59.373666+01:00"
     description: A Helm chart for cronjob Kubernetes
-    digest: 4af61ce2be6268c4a4ed4bc150f7c613833f28633c3e360951857205cf2f8e64
+    digest: 44bcf5c1020d05b1736f05077a74abee8698b71b0f3721e8ee0ec76d1f5c39b6
     home: https://freuds.github.io/custom-charts/
     icon: https://freuds.github.io/custom-charts/imgs/cronjob.png
     keywords:
@@ -22,7 +22,7 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: 0.1.3
-    created: "2025-11-11T18:22:58.223622+01:00"
+    created: "2025-11-11T18:47:59.371551+01:00"
     description: A Helm chart for cronjob Kubernetes
     digest: 380370db38cf455e5fbee7f365b33a146791f781f269c6e27577d91ecbf56ba9
     name: cronjob
@@ -33,9 +33,9 @@ entries:
   gatus:
   - apiVersion: v2
     appVersion: v5.18.1
-    created: "2025-11-11T18:22:58.228476+01:00"
+    created: "2025-11-11T18:47:59.376081+01:00"
     description: Automated service health dashboard
-    digest: 3ad6b135368cc640899a1d7e6dfa73d32a6737ddc8a3a24e851dfd06a75793ad
+    digest: d5df22abc10b9dd41115aa80b3a677e51b87ae1312e8bcdef43c9812634648fd
     home: https://github.com/TwiN/gatus
     icon: https://raw.githubusercontent.com/TwiN/gatus/a1c8422c2ff2b9d0a6f184c99e4dc728d3f2cd75/web/static/logo-192x192.png
     keywords:
@@ -56,9 +56,9 @@ entries:
   grafana-dashboards:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-11-11T18:22:58.254219+01:00"
+    created: "2025-11-11T18:47:59.405534+01:00"
     description: A Helm chart for deploying Grafana Dashboars as configMap in Kubernetes
-    digest: 1f5b365fa29ef57017223afac1f2cf84479a6365fbaa719c72cd1fa121902222
+    digest: 728f4c938a8b2bff0f464af1eb007ba7be6a0cfa67e6026cc08485397e0598dc
     home: https://freuds.github.io/custom-charts
     icon: https://freuds.github.io/custom-charts/imgs/grafana-dashboards.png
     keywords:
@@ -76,7 +76,7 @@ entries:
     version: 1.1.6
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-11-11T18:22:58.249172+01:00"
+    created: "2025-11-11T18:47:59.400126+01:00"
     description: A Helm chart for deploying Grafana Dashboars as configMap in Kubernetes
     digest: df1eb2f58e977fe82e2d3fdb0cddfdc691e80aa968cfa313c6598a52c9768b0f
     home: https://freuds.github.io/custom-charts
@@ -96,7 +96,7 @@ entries:
     version: 1.1.5
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-11-11T18:22:58.245542+01:00"
+    created: "2025-11-11T18:47:59.395705+01:00"
     description: A Helm chart for deploying Grafana Dashboars as configMap in Kubernetes
     digest: 1aed8bb7301991a0bfaf4a114d248fd99d4b970a674623f88930f893427e22d6
     home: https://freuds.github.io/custom-charts
@@ -116,7 +116,7 @@ entries:
     version: 1.1.4
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-11-11T18:22:58.241778+01:00"
+    created: "2025-11-11T18:47:59.391769+01:00"
     description: A Helm chart for deploying Grafana Dashboars as configMap in Kubernetes
     digest: d70373505bf798fa77e018ae63c0139ddfd838f87652c4790c562f96bff4f699
     home: https://freuds.github.io/custom-charts
@@ -136,7 +136,7 @@ entries:
     version: 1.1.3
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-11-11T18:22:58.237841+01:00"
+    created: "2025-11-11T18:47:59.387912+01:00"
     description: A Helm chart for deploying Grafana Dashboars as configMap in Kubernetes
     digest: e81da2b32c5329aabaa98b80eeae96c00c324654b9088b831e9ec0e223aa3887
     home: https://freuds.github.io/custom-charts
@@ -156,7 +156,7 @@ entries:
     version: 1.1.2
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-11-11T18:22:58.232844+01:00"
+    created: "2025-11-11T18:47:59.382121+01:00"
     description: A Helm chart for deploying Grafana Dashboars as configMap in Kubernetes
     digest: e0c224921375e54c294ff5ed57c65dd4e994e72d912326c9ce678d40ed410b5a
     home: https://freuds.github.io/custom-charts
@@ -176,9 +176,9 @@ entries:
   ihm:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-11-11T18:22:58.257073+01:00"
+    created: "2025-11-11T18:47:59.408672+01:00"
     description: A Generic IHM Helm chart for Kubernetes
-    digest: c07a38bfeb3322acdb706180591b3e6c2a4d425cff8082ce7172fe858ee4e43d
+    digest: 8005e2147619eeca4e7ab5a6bc4a4244e38959499d434bee3222e665c147b35b
     home: https://freuds.github.io/custom-charts
     icon: https://freuds.github.io/custom-charts/imgs/ihm.png
     keywords:
@@ -198,9 +198,9 @@ entries:
   openvpn-exporter:
   - apiVersion: v2
     appVersion: v0.3.2
-    created: "2025-11-11T18:22:58.2628+01:00"
+    created: "2025-11-11T18:47:59.414474+01:00"
     description: Prometheus OpenVPN Exporter
-    digest: 0b4ff39b7e8395ed952d8a5a87c97a84fc04c72a9a7df63833b2ff6f37f08d96
+    digest: 322e3df273e8cdae75237eab8b81c0686f0ef03b1fa772d984826131e4530e84
     home: https://freuds.github.io/custom-charts
     icon: https://freuds.github.io/custom-charts/imgs/openvpn-exporter.png
     keywords:
@@ -219,7 +219,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: v0.3.2
-    created: "2025-11-11T18:22:58.259255+01:00"
+    created: "2025-11-11T18:47:59.410512+01:00"
     description: Prometheus SNMP Exporter
     digest: a7a89e8ca3e98d305e3284589b35154c7e2965c61e06ec5ee72eea39894417d3
     home: https://freuds.github.io/custom-charts
@@ -241,7 +241,27 @@ entries:
   proxy:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-11-11T18:22:58.267726+01:00"
+    created: "2025-11-11T18:47:59.421128+01:00"
+    description: A Helm chart for Ingress with ExternalName
+    digest: b9af66d2c8d493ab7b9d5d19d3caa33dfdb3d14fa31f37d7608383ed1c2e8351
+    home: https://freuds.github.io/custom-charts
+    icon: https://freuds.github.io/custom-charts/imgs/proxy.png
+    keywords:
+    - proxy
+    - ingress
+    - api-gateway
+    maintainers:
+    - name: Freuds
+    name: proxy
+    sources:
+    - https://freuds.github.io/custom-charts
+    type: application
+    urls:
+    - https://freuds.github.io/custom-charts/proxy-1.1.1.tgz
+    version: 1.1.1
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-11-11T18:47:59.418191+01:00"
     description: A Helm chart for Ingress with ExternalName
     digest: 4f063fba109a4823946a499860e6cb1815c71b3c2d0b4f9b6ef1cb0ccd34cac8
     home: https://freuds.github.io/custom-charts
@@ -261,7 +281,7 @@ entries:
     version: 1.1.0
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-11-11T18:22:58.264675+01:00"
+    created: "2025-11-11T18:47:59.41636+01:00"
     description: A Helm chart for Ingress with ExternalName
     digest: 7a755e96449b01eb3de19349d7d2df716fb743e9054af257b9eca5bcf98b92b7
     home: https://freuds.github.io/custom-charts
@@ -278,4 +298,4 @@ entries:
     urls:
     - https://freuds.github.io/custom-charts/proxy-1.0.0.tgz
     version: 1.0.0
-generated: "2025-11-11T18:22:58.220027+01:00"
+generated: "2025-11-11T18:47:59.369503+01:00"

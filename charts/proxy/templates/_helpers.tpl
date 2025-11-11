@@ -42,3 +42,43 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Validate that the user did not enable both Ingress and Gateway exposure at the same time.
+This template will fail the render if both are enabled to avoid accidentally creating both resources.
+*/}}
+{{- define "proxy.validateExpose" -}}
+{{- /* Fail when both legacy booleans enabled */ -}}
+{{- if and .Values.ingress.enabled .Values.gateway.enabled }}
+	{{- fail "Configuration invalid: both .Values.ingress.enabled and .Values.gateway.enabled are true. Please enable only one exposure method (Ingress OR Gateway)." -}}
+{{- end }}
+
+{{- /* If user uses new expose.type and also set legacy booleans, forbid mixing */ -}}
+{{- if and (ne (default "" .Values.expose.type) "") (or .Values.ingress.enabled .Values.gateway.enabled) }}
+	{{- fail "Configuration invalid: .Values.expose.type is set; do not set .Values.ingress.enabled or .Values.gateway.enabled when using expose.type." -}}
+{{- end }}
+
+{{- /* Validate expose.type value if set */ -}}
+{{- if ne (default "" .Values.expose.type) "" }}
+	{{- $t := lower .Values.expose.type }}
+	{{- if not (or (eq $t "ingress") (eq $t "gateway")) }}
+		{{- fail (printf "Configuration invalid: .Values.expose.type must be one of 'ingress' or 'gateway' (got '%s')" .Values.expose.type) -}}
+	{{- end }}
+{{- end }}
+{{- end }}
+
+
+{{- /* Return effective expose method: priority is expose.type if set, else legacy booleans */ -}}
+{{- define "proxy.exposeMethod" -}}
+{{- $et := default "" .Values.expose.type }}
+{{- if ne $et "" }}
+	{{- lower $et -}}
+{{- else if .Values.ingress.enabled }}
+	ingress
+{{- else if .Values.gateway.enabled }}
+	gateway
+{{- else -}}
+	{{- "" -}}
+
+{{- end }}
+{{- end }}

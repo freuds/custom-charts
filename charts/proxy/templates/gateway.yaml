@@ -1,4 +1,7 @@
-{{- if .Values.gateway.enabled -}}
+{{- include "proxy.validateExpose" . }}
+{{- $expose := include "proxy.exposeMethod" . -}}
+{{- if eq $expose "gateway" }}
+{{- $serviceName := include "proxy.name" . -}}
 {{- $serviceName := include "proxy.name" . -}}
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
@@ -7,12 +10,27 @@ metadata:
   name: {{ include "proxy.name" . }}
   labels:
     {{- include "proxy.labels" . | nindent 4 }}
+  {{- with .Values.gateway.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   gatewayClassName: {{ .Values.gateway.gatewayClassName | quote }}
   listeners:
     - name: {{ .Values.gateway.listener.name }}
       protocol: {{ .Values.gateway.listener.protocol }}
       port: {{ .Values.gateway.listener.port }}
+{{- if .Values.gateway.listenerTLS.enabled }}
+      tls:
+        certificateRefs:
+        {{- range .Values.gateway.listenerTLS.certificateRefs }}
+        - name: {{ .name | quote }}
+          kind: {{ default "Secret" .kind }}
+          {{- if .namespace }}
+          namespace: {{ .namespace | quote }}
+          {{- end }}
+        {{- end }}
+{{- end }}
       allowedRoutes:
         namespaces:
           from: All
@@ -25,6 +43,10 @@ metadata:
   name: {{ include "proxy.name" . }}-http
   labels:
     {{- include "proxy.labels" . | nindent 4 }}
+  {{- with .Values.gateway.httpRouteAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   parentRefs:
     - name: {{ include "proxy.name" . }}

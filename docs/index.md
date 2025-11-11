@@ -11,7 +11,7 @@
 ### proxy
 
 - **Description** : Ingress or Api Gateway Proxy
-- **Version** : 1.1.0
+- **Version** : 1.1.1
 - **AppVersion** : 1.0.0
 
 ### grafana-dashboards
