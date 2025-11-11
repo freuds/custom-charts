@@ -41,6 +41,7 @@ tasks:
 
   update-deps:
     desc: Update Helm dependencies
+    silent: true
     cmds:
       - |
         for chart in $(yq '.chart-dirs[]' charts/ct.yaml); do

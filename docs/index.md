@@ -10,14 +10,14 @@
 
 ### proxy
 
-- **Description** : Ingress Proxy for ExternalName
-- **Version** : 1.0.0
+- **Description** : Ingress or Api Gateway Proxy
+- **Version** : 1.1.0
 - **AppVersion** : 1.0.0
 
 ### grafana-dashboards
 
 - **Description** : Dashboards for Grafana
-- **Version** : 1.1.4
+- **Version** : 1.1.6
 - **AppVersion** : 1.0.0
 
 ### openvpn-exporter

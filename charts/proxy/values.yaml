@@ -33,3 +33,17 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+
+gateway:
+  # Enable generation of Gateway API resources (Gateway + HTTPRoute)
+  enabled: false
+  # gatewayClassName used by the Gateway resource (depends on your cluster)
+  gatewayClassName: "nginx"
+  # Hostnames to expose through the HTTPRoute
+  hosts:
+    - chart-example.local
+  # Listener configuration (simple HTTP listener)
+  listener:
+    name: http
+    protocol: HTTP
+    port: 80

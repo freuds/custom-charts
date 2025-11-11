@@ -3,7 +3,7 @@ appVersion: "1.0.0"
 description: A Helm chart for Ingress with ExternalName
 icon: https://freuds.github.io/custom-charts/imgs/proxy.png
 name: proxy
-version: 1.0.0
+version: 1.1.0
 type: application
 home: https://freuds.github.io/custom-charts
 sources:
@@ -11,5 +11,6 @@ sources:
 keywords:
   - proxy
   - ingress
+  - api-gateway
 maintainers:
   - name: Freuds
