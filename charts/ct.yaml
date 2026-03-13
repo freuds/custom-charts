@@ -2,12 +2,13 @@
 remote: origin
 target-branch: main
 chart-dirs:
+  - cert-manager-webhook-gandi
   - cronjob
-  - proxy
-  - grafana-dashboards
-  - openvpn-exporter
   - ihm
   - gatus
+  - grafana-dashboards
+  - openvpn-exporter
+  - proxy
 
 chart-repos:
   - custom-charts=https://freuds.github.io/custom-charts

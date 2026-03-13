@@ -38,6 +38,12 @@
 - **Version** : 1.3.0
 - **AppVersion** : v5.18.1
 
+### cert-manager-webhook-gandi
+
+- **Description** : A Helm chart for Gandi webhook for cert-manager
+- **Version** : 0.6.0
+- **AppVersion** : v0.6.0
+
 ## Utilisation du repo Helm
 
 ```sh

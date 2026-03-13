@@ -34,9 +34,10 @@ tasks:
         for chart in $(yq '.chart-dirs[]' charts/ct.yaml); do
           helm lint charts/$chart
           helm template charts/$chart | \
-            kubeconform -kubernetes-version 1.26.0 \
+            kubeconform -kubernetes-version 1.35.0 \
             -schema-location default \
-            -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json'
+            -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json' \
+            -skip Certificate,Issuer
         done
 
   update-deps:

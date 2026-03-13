@@ -5,6 +5,7 @@ Ce dépôt contient des charts Helm personnalisés, packagés et publiés automa
 ## Structure du dépôt
 
 - `charts/` : Contient les charts Helm
+  - `cert-manager-webhook-gandi/` : Chart Helm pour le webhook certbot Gandi de cert-manager
   - `cronjob/` : Chart Helm pour déployer des CronJobs Kubernetes
   - `gatus/` : Chart Helm pour déployer [Gatus](https://github.com/TwiN/gatus) webservice
   - `grafana-dashboards/` : Chart Helm pour déployer des dashboards Grafana en tant que ConfigMaps
