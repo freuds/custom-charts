@@ -1,8 +1,8 @@
 apiVersion: v2
 description: A Helm chart for cert-manager-webhook-gandi
 name: cert-manager-webhook-gandi
-version: v0.6.0
-appVersion: 0.6.0
+version: 0.6.0
+appVersion: "v0.6.0"
 icon: https://freuds.github.io/custom-charts/imgs/cert-manager-webhook-gandi.png
 home: https://github.com/SINTEF/cert-manager-webhook-gandi
 sources:
