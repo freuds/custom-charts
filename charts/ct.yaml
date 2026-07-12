@@ -5,6 +5,7 @@ chart-dirs:
   - cert-manager-webhook-gandi
   - cronjob
   - ihm
+  - garage
   - gatus
   - grafana-dashboards
   - openvpn-exporter

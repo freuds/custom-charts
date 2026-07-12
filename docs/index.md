@@ -14,6 +14,12 @@
 - **Version** : 1.0.0
 - **AppVersion** : 0.1.3
 
+### garage
+
+- **Description** : S3-compatible object store for small self-hosted geo-distributed deployments
+- **Version** : 0.9.3
+- **AppVersion** : v2.3.0
+
 ### gatus
 
 - **Description** : Automated service health dashboard
