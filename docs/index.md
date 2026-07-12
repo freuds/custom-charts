@@ -11,7 +11,7 @@
 ### cronjob
 
 - **Description** : A Helm chart for cronjob Kubernetes
-- **Version** : 1.0.0
+- **Version** : 1.1.0
 - **AppVersion** : 0.1.3
 
 ### garage
