@@ -7,6 +7,8 @@ jobs:
   #     tag: latest
   #     imagePullPolicy: IfNotPresent
   #   schedule: "* * * * *"
+  #   # optional: IANA time zone for the schedule (requires Kubernetes >= 1.27)
+  #   timeZone: "Europe/Paris"
   #   failedJobsHistoryLimit: 1
   #   successfulJobsHistoryLimit: 3
   #   concurrencyPolicy: Allow
@@ -87,3 +89,58 @@ jobs:
   #             values:
   #             - e2e-az1
   #             - e2e-az2
+  # fourth cron: all optional attributes with their defaults
+  # - name: full-options
+  #   image:
+  #     repository: registry.example.com/backup
+  #     tag: "1.2.3"
+  #     imagePullPolicy: IfNotPresent   # default: IfNotPresent
+  #   schedule: "0 4 * * *"
+  #   # IANA time zone for the schedule (requires Kubernetes >= 1.27)
+  #   timeZone: "Europe/Paris"
+  #   # pause the cron without deleting it
+  #   suspend: false
+  #   # give up a missed run after this many seconds (avoids catch-up bursts)
+  #   startingDeadlineSeconds: 300
+  #   concurrencyPolicy: Forbid         # default: Allow
+  #   failedJobsHistoryLimit: 1         # default: 1
+  #   successfulJobsHistoryLimit: 3     # default: 3
+  #   restartPolicy: OnFailure          # default: OnFailure
+  #   # retries before the Job is marked failed (Kubernetes default: 6)
+  #   backoffLimit: 2
+  #   # kill a run that exceeds this duration (seconds)
+  #   activeDeadlineSeconds: 3600
+  #   # auto-cleanup of finished Jobs/Pods (seconds)
+  #   ttlSecondsAfterFinished: 86400
+  #   # pull from a private registry
+  #   imagePullSecrets:
+  #   - name: regcred
+  #   priorityClassName: system-cluster-critical
+  #   # extra metadata on the pods (Prometheus scrape, Vault injector, ...)
+  #   podAnnotations:
+  #     prometheus.io/scrape: "true"
+  #   podLabels:
+  #     team: infra
+  #   serviceAccount:
+  #     name: backup-sa
+  #     # set create: false to reference an existing ServiceAccount without creating it
+  #     create: true
+  #     annotations:
+  #       eks.amazonaws.com/role-arn: "arn:aws:iam::123456789:role/backup"
+  #   # pod-level security context
+  #   securityContext:
+  #     runAsUser: 1000
+  #     runAsGroup: 1000
+  #     fsGroup: 2000
+  #   # container-level security context
+  #   containerSecurityContext:
+  #     allowPrivilegeEscalation: false
+  #     readOnlyRootFilesystem: true
+  #     capabilities:
+  #       drop:
+  #       - ALL
+  #   command:
+  #   - /bin/sh
+  #   args:
+  #   - "-c"
+  #   - "echo backup done"
