@@ -2,7 +2,6 @@
 remote: origin
 target-branch: main
 chart-dirs:
-  - cert-manager-webhook-gandi
   - cronjob
   - ihm
   - garage

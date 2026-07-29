@@ -2,12 +2,6 @@
 
 ## Charts disponibles
 
-### cert-manager-webhook-gandi
-
-- **Description** : A Helm chart for cert-manager-webhook-gandi
-- **Version** : 0.6.0
-- **AppVersion** : v0.6.0
-
 ### cronjob
 
 - **Description** : A Helm chart for cronjob Kubernetes
@@ -29,7 +23,7 @@
 ### grafana-dashboards
 
 - **Description** : A Helm chart for deploying Grafana Dashboars as configMap in Kubernetes
-- **Version** : 1.1.8
+- **Version** : 1.1.9
 - **AppVersion** : 1.0.0
 
 ### ihm
