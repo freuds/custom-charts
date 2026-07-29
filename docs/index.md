@@ -22,8 +22,8 @@
 
 ### grafana-dashboards
 
-- **Description** : A Helm chart for deploying Grafana Dashboars as configMap in Kubernetes
-- **Version** : 1.1.9
+- **Description** : A Helm chart for deploying Grafana Dashboards as configMap in Kubernetes
+- **Version** : 1.2.0
 - **AppVersion** : 1.0.0
 
 ### ihm
