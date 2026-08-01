@@ -91,7 +91,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "up{job=\"vault\"}",
+          "expr": "up{job=\"vault-internal\"}",
           "format": "time_series",
           "interval": "",
           "legendFormat": "{{ instance }}",

@@ -25,6 +25,8 @@ trim_trailing_whitespace = false
 [*.{json,js,ts,jsx,tsx}]
 indent_size = 2
 indent_style = space
+trim_trailing_whitespace = false
+insert_final_newline = false
 
 # Tab indentation (no size specified)
 [Makefile,*.Makefile]
