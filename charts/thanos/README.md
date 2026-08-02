@@ -1,6 +1,6 @@
 # thanos
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.42.4](https://img.shields.io/badge/AppVersion-v0.42.4-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.42.4](https://img.shields.io/badge/AppVersion-v0.42.4-informational?style=flat-square)
 
 Thanos Query, Store Gateway and Compactor for long-term Prometheus storage on S3-compatible object storage
 
@@ -38,7 +38,7 @@ Thanos Query, Store Gateway and Compactor for long-term Prometheus storage on S3
 | podSecurityContext.runAsUser | int | `65534` |  |
 | podSecurityContext.seccompProfile.type | string | `"RuntimeDefault"` |  |
 | query.enabled | bool | `true` | Deploy the Thanos Query component (unified PromQL endpoint over the sidecar + store gateway) |
-| query.extraStores | list | `[]` | Extra `--store` targets, in addition to sidecarDiscoveryService and the in-chart store gateway |
+| query.extraStores | list | `[]` | Extra `--endpoint` targets, in addition to sidecarDiscoveryService and the in-chart store gateway |
 | query.logLevel | string | `"info"` |  |
 | query.replicaCount | int | `1` |  |
 | query.resources.limits.memory | string | `"256Mi"` |  |

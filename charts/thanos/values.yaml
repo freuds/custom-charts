@@ -47,7 +47,7 @@ query:
   replicaCount: 1
   logLevel: info
 
-  # -- Extra `--store` targets, in addition to sidecarDiscoveryService and the in-chart store gateway
+  # -- Extra `--endpoint` targets, in addition to sidecarDiscoveryService and the in-chart store gateway
   extraStores: []
 
   # -- DNS name (host:port, gRPC) of the kube-prometheus-stack Thanos sidecar discovery Service.

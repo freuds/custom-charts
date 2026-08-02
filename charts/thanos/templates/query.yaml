@@ -30,10 +30,10 @@ spec:
             - --log.level={{ .Values.query.logLevel }}
             - --http-address=0.0.0.0:{{ .Values.query.service.httpPort }}
             - --grpc-address=0.0.0.0:{{ .Values.query.service.grpcPort }}
-            - --store={{ .Values.query.sidecarDiscoveryService }}
-            - --store={{ include "names.componentFullname" (dict "context" $ "component" "storegateway") }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.storegateway.service.grpcPort }}
+            - --endpoint={{ .Values.query.sidecarDiscoveryService }}
+            - --endpoint={{ include "names.componentFullname" (dict "context" $ "component" "storegateway") }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.storegateway.service.grpcPort }}
             {{- range .Values.query.extraStores }}
-            - --store={{ . }}
+            - --endpoint={{ . }}
             {{- end }}
           ports:
             - name: http
