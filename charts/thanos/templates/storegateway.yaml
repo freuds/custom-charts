@@ -1,0 +1,106 @@
+{{- if .Values.storegateway.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "names.componentFullname" (dict "context" $ "component" "storegateway") }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "labels.componentLabels" (dict "context" $ "component" "storegateway") | nindent 4 }}
+spec:
+  replicas: {{ .Values.storegateway.replicaCount }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "labels.componentSelectorLabels" (dict "context" $ "component" "storegateway") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "labels.componentSelectorLabels" (dict "context" $ "component" "storegateway") | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "names.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: storegateway
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          args:
+            - store
+            - --log.level={{ .Values.storegateway.logLevel }}
+            - --data-dir=/data
+            - --objstore.config-file=/etc/thanos/objstore.yml
+            - --http-address=0.0.0.0:{{ .Values.storegateway.service.httpPort }}
+            - --grpc-address=0.0.0.0:{{ .Values.storegateway.service.grpcPort }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.storegateway.service.httpPort }}
+              protocol: TCP
+            - name: grpc
+              containerPort: {{ .Values.storegateway.service.grpcPort }}
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /-/ready
+              port: http
+          livenessProbe:
+            httpGet:
+              path: /-/healthy
+              port: http
+          resources:
+            {{- toYaml .Values.storegateway.resources | nindent 12 }}
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: objstore-config
+              mountPath: /etc/thanos
+              readOnly: true
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "names.componentFullname" (dict "context" $ "component" "storegateway") }}
+        - name: objstore-config
+          secret:
+            secretName: {{ .Values.objstoreSecret.name }}
+            items:
+              - key: {{ .Values.objstoreSecret.key }}
+                path: objstore.yml
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "names.componentFullname" (dict "context" $ "component" "storegateway") }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "labels.componentLabels" (dict "context" $ "component" "storegateway") | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .Values.storegateway.persistence.storageClassName }}
+  resources:
+    requests:
+      storage: {{ .Values.storegateway.persistence.size | quote }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "names.componentFullname" (dict "context" $ "component" "storegateway") }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "labels.componentLabels" (dict "context" $ "component" "storegateway") | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: {{ .Values.storegateway.service.httpPort }}
+      targetPort: http
+      protocol: TCP
+    - name: grpc
+      port: {{ .Values.storegateway.service.grpcPort }}
+      targetPort: grpc
+      protocol: TCP
+  selector:
+    {{- include "labels.componentSelectorLabels" (dict "context" $ "component" "storegateway") | nindent 4 }}
+{{- end }}

@@ -44,6 +44,12 @@
 - **Version** : 1.1.1
 - **AppVersion** : 1.0.0
 
+### thanos
+
+- **Description** : Thanos Query, Store Gateway and Compactor for long-term Prometheus storage on S3-compatible object storage
+- **Version** : 0.1.0
+- **AppVersion** : v0.42.4
+
 ## Utilisation du repo Helm
 
 ```sh

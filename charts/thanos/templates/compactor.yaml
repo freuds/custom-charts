@@ -1,0 +1,106 @@
+{{- if .Values.compactor.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "names.componentFullname" (dict "context" $ "component" "compactor") }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "labels.componentLabels" (dict "context" $ "component" "compactor") | nindent 4 }}
+spec:
+  # Never scale beyond 1: the compactor is not safe to run concurrently against the same bucket.
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "labels.componentSelectorLabels" (dict "context" $ "component" "compactor") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "labels.componentSelectorLabels" (dict "context" $ "component" "compactor") | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "names.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: compactor
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          args:
+            - compact
+            - --log.level={{ .Values.compactor.logLevel }}
+            - --data-dir=/data
+            - --objstore.config-file=/etc/thanos/objstore.yml
+            - --http-address=0.0.0.0:{{ .Values.compactor.service.httpPort }}
+            - --retention.resolution-raw={{ .Values.compactor.retention.raw }}
+            - --retention.resolution-5m={{ .Values.compactor.retention.fiveMinutes }}
+            - --retention.resolution-1h={{ .Values.compactor.retention.oneHour }}
+            - --wait
+            {{- range .Values.compactor.extraArgs }}
+            - {{ . }}
+            {{- end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.compactor.service.httpPort }}
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /-/ready
+              port: http
+          livenessProbe:
+            httpGet:
+              path: /-/healthy
+              port: http
+          resources:
+            {{- toYaml .Values.compactor.resources | nindent 12 }}
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: objstore-config
+              mountPath: /etc/thanos
+              readOnly: true
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "names.componentFullname" (dict "context" $ "component" "compactor") }}
+        - name: objstore-config
+          secret:
+            secretName: {{ .Values.objstoreSecret.name }}
+            items:
+              - key: {{ .Values.objstoreSecret.key }}
+                path: objstore.yml
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "names.componentFullname" (dict "context" $ "component" "compactor") }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "labels.componentLabels" (dict "context" $ "component" "compactor") | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .Values.compactor.persistence.storageClassName }}
+  resources:
+    requests:
+      storage: {{ .Values.compactor.persistence.size | quote }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "names.componentFullname" (dict "context" $ "component" "compactor") }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "labels.componentLabels" (dict "context" $ "component" "compactor") | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: {{ .Values.compactor.service.httpPort }}
+      targetPort: http
+      protocol: TCP
+  selector:
+    {{- include "labels.componentSelectorLabels" (dict "context" $ "component" "compactor") | nindent 4 }}
+{{- end }}

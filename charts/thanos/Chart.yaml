@@ -1,0 +1,19 @@
+apiVersion: v2
+name: thanos
+description: Thanos Query, Store Gateway and Compactor for long-term Prometheus storage on S3-compatible object storage
+type: application
+version: 0.1.0
+appVersion: "v0.42.4"
+home: https://thanos.io/
+icon: https://raw.githubusercontent.com/thanos-io/thanos/main/website/static/img/logo.svg
+
+keywords:
+- prometheus
+- long-term-storage
+- object-storage
+- monitoring
+
+sources:
+- https://github.com/thanos-io/thanos
+
+maintainers: []

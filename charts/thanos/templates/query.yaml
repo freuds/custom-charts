@@ -1,0 +1,76 @@
+{{- if .Values.query.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "names.componentFullname" (dict "context" $ "component" "query") }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "labels.componentLabels" (dict "context" $ "component" "query") | nindent 4 }}
+spec:
+  replicas: {{ .Values.query.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "labels.componentSelectorLabels" (dict "context" $ "component" "query") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "labels.componentSelectorLabels" (dict "context" $ "component" "query") | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "names.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: query
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          args:
+            - query
+            - --log.level={{ .Values.query.logLevel }}
+            - --http-address=0.0.0.0:{{ .Values.query.service.httpPort }}
+            - --grpc-address=0.0.0.0:{{ .Values.query.service.grpcPort }}
+            - --store={{ .Values.query.sidecarDiscoveryService }}
+            - --store={{ include "names.componentFullname" (dict "context" $ "component" "storegateway") }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.storegateway.service.grpcPort }}
+            {{- range .Values.query.extraStores }}
+            - --store={{ . }}
+            {{- end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.query.service.httpPort }}
+              protocol: TCP
+            - name: grpc
+              containerPort: {{ .Values.query.service.grpcPort }}
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /-/ready
+              port: http
+          livenessProbe:
+            httpGet:
+              path: /-/healthy
+              port: http
+          resources:
+            {{- toYaml .Values.query.resources | nindent 12 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "names.componentFullname" (dict "context" $ "component" "query") }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "labels.componentLabels" (dict "context" $ "component" "query") | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: {{ .Values.query.service.httpPort }}
+      targetPort: http
+      protocol: TCP
+    - name: grpc
+      port: {{ .Values.query.service.grpcPort }}
+      targetPort: grpc
+      protocol: TCP
+  selector:
+    {{- include "labels.componentSelectorLabels" (dict "context" $ "component" "query") | nindent 4 }}
+{{- end }}

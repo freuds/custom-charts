@@ -1,0 +1,31 @@
+{{- if .Values.serviceMonitor.enabled }}
+{{- range $component := list "query" "storegateway" "compactor" }}
+{{- if (index $.Values $component).enabled }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "names.componentFullname" (dict "context" $ "component" $component) }}
+  namespace: {{ $.Values.serviceMonitor.namespace | default $.Release.Namespace }}
+  labels:
+    {{- include "labels.componentLabels" (dict "context" $ "component" $component) | nindent 4 }}
+    {{- with $.Values.serviceMonitor.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  endpoints:
+    - port: http
+      interval: {{ $.Values.serviceMonitor.interval }}
+      path: {{ $.Values.serviceMonitor.path }}
+      scheme: {{ $.Values.serviceMonitor.scheme }}
+      honorLabels: true
+  jobLabel: "{{ $.Release.Name }}-{{ $component }}"
+  selector:
+    matchLabels:
+      {{- include "labels.componentSelectorLabels" (dict "context" $ "component" $component) | nindent 6 }}
+  namespaceSelector:
+    matchNames:
+      - {{ $.Release.Namespace }}
+{{- end }}
+{{- end }}
+{{- end }}

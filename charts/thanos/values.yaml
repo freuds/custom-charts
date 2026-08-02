@@ -1,0 +1,135 @@
+# Default values for thanos.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  # -- Official upstream Thanos image, independent of Bitnami's chart/image distribution
+  repository: quay.io/thanos/thanos
+  tag: v0.42.4
+  pullPolicy: IfNotPresent
+
+# -- Reference to an existing Secret holding the objstore.yml file used by Store Gateway and
+# Compactor to talk to the S3-compatible bucket (populated out-of-band, e.g. via an ExternalSecret
+# synced from Vault -- see docs/thanos.md in the mediaserver repo)
+objstoreSecret:
+  name: thanos-objstore-secret
+  key: objstore.yml
+
+serviceAccount:
+  # -- Specifies whether a ServiceAccount should be created
+  create: true
+  name: ""
+  annotations: {}
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 65534
+  runAsGroup: 65534
+  fsGroup: 65534
+  seccompProfile:
+    type: RuntimeDefault
+
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop: ["ALL"]
+
+# -- Extra labels for all resources created by this chart
+commonLabels: {}
+
+query:
+  # -- Deploy the Thanos Query component (unified PromQL endpoint over the sidecar + store gateway)
+  enabled: true
+  replicaCount: 1
+  logLevel: info
+
+  # -- Extra `--store` targets, in addition to sidecarDiscoveryService and the in-chart store gateway
+  extraStores: []
+
+  # -- DNS name (host:port, gRPC) of the kube-prometheus-stack Thanos sidecar discovery Service.
+  # Default assumes the kube-prometheus-stack release name is "kube-prometheus-stack" in the
+  # "kube-prometheus-stack" namespace (fullname collapses to the release name since it already
+  # contains the chart name) -- verify with:
+  #   kubectl get svc -n kube-prometheus-stack -l 'app.kubernetes.io/name=kube-prometheus-stack-thanos-discovery' -o name
+  sidecarDiscoveryService: "kube-prometheus-stack-thanos-discovery.kube-prometheus-stack.svc.cluster.local:10901"
+
+  service:
+    httpPort: 10902
+    grpcPort: 10901
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      memory: 256Mi
+
+storegateway:
+  # -- Deploy the Thanos Store Gateway (serves historical blocks from the bucket over the Store API)
+  enabled: true
+  replicaCount: 1
+  logLevel: info
+
+  service:
+    httpPort: 10902
+    grpcPort: 10901
+
+  # -- Local scratch space for the block index-header cache. Small compared to the bucket itself:
+  # only index headers are cached on disk, not full block data.
+  persistence:
+    storageClassName: local-path
+    size: 10Gi
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      memory: 512Mi
+
+compactor:
+  # -- Deploy the Thanos Compactor (compaction, downsampling, retention enforcement on the bucket).
+  # Never scale this beyond 1 replica: the compactor is not safe to run concurrently against the
+  # same bucket.
+  enabled: true
+  logLevel: info
+
+  retention:
+    # -- How long raw-resolution blocks are kept in the bucket
+    raw: 30d
+    # -- How long 5m-downsampled blocks are kept in the bucket
+    fiveMinutes: 180d
+    # -- How long 1h-downsampled blocks are kept in the bucket ("0d" == forever)
+    oneHour: 0d
+
+  # -- Extra flags appended to the compact command
+  extraArgs: []
+
+  # -- Scratch disk for downloading blocks during compaction/downsampling. Needs real capacity
+  # (sized after the largest blocks compacted at once), unlike storegateway's index-only cache.
+  persistence:
+    storageClassName: local-path
+    size: 20Gi
+
+  service:
+    httpPort: 10902
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      memory: 1Gi
+
+serviceMonitor:
+  # -- Requires the Prometheus Operator CRDs (already installed by kube-prometheus-stack)
+  enabled: false
+  namespace: ""
+  interval: 1m
+  path: /metrics
+  scheme: http
+  labels: {}

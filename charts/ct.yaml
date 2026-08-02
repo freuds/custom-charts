@@ -9,6 +9,7 @@ chart-dirs:
   - grafana-dashboards
   - openvpn-exporter
   - proxy
+  - thanos
 
 chart-repos:
   - custom-charts=https://freuds.github.io/custom-charts
