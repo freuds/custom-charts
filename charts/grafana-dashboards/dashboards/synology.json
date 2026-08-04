@@ -5419,9 +5419,8 @@
   "refresh": "30s",
   "schemaVersion": 41,
   "tags": [
-    "synology",
-    "dsm",
-    "nas"
+    "Synology",
+    "NAS"
   ],
   "templating": {
     "list": [

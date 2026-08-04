@@ -1269,7 +1269,8 @@
   "refresh": "",
   "schemaVersion": 42,
   "tags": [
-    "cronjobs"
+    "Cronjobs",
+    "Kubernetes"
   ],
   "templating": {
     "list": [

@@ -496,8 +496,8 @@
   "schemaVersion": 37,
   "style": "dark",
   "tags": [
-    "k8s",
-    "cert-manager"
+    "Cert-manager",
+    "Kubernetes"
   ],
   "templating": {
     "list": [

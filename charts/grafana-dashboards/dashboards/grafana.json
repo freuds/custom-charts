@@ -3108,8 +3108,7 @@
   "refresh": "",
   "schemaVersion": 41,
   "tags": [
-    "grafana",
-    "internal metrics"
+    "Grafana"
   ],
   "templating": {
     "list": [

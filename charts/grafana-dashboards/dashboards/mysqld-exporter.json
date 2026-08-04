@@ -5578,8 +5578,8 @@
   "refresh": "1m",
   "schemaVersion": 42,
   "tags": [
-    "Percona",
-    "MySQL"
+    "MySQL",
+    "MariaDB"
   ],
   "templating": {
     "list": [

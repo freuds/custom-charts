@@ -1191,7 +1191,10 @@
   "preload": false,
   "refresh": "1m",
   "schemaVersion": 42,
-  "tags": [],
+  "tags": [
+    "authelia",
+    "security"
+  ],
   "templating": {
     "list": [
       {

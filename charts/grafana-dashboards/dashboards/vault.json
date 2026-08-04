@@ -1799,7 +1799,8 @@
   "refresh": "",
   "schemaVersion": 42,
   "tags": [
-    "vault"
+    "Vault",
+    "Security"
   ],
   "templating": {
     "list": [
