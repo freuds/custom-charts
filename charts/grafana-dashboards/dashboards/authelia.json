@@ -18,7 +18,7 @@
   "editable": false,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 204,
+  "id": 209,
   "links": [],
   "panels": [
     {
@@ -93,7 +93,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
+          "editorMode": "code",
           "expr": "count(count by (instance) (authelia_request))",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -391,6 +391,7 @@
         "y": 4
       },
       "id": 1,
+      "interval": "2m",
       "options": {
         "legend": {
           "displayMode": "table",
@@ -423,7 +424,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
+          "editorMode": "code",
           "expr": "sum by(method, code) (rate(authelia_request{instance=~\"$instance\"}[$__rate_interval]))",
           "fullMetaSearch": false,
           "hide": false,
@@ -537,6 +538,7 @@
         "y": 11
       },
       "id": 2,
+      "interval": "2m",
       "options": {
         "legend": {
           "displayMode": "table",
@@ -612,6 +614,7 @@
         "y": 11
       },
       "id": 3,
+      "interval": "2m",
       "options": {
         "legend": {
           "displayMode": "table",
@@ -921,7 +924,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
+          "editorMode": "code",
           "exemplar": false,
           "expr": "sum by(success, banned) (rate(authelia_authn{instance=~\"$instance\"}[$__rate_interval]))",
           "fullMetaSearch": false,
@@ -1033,7 +1036,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
+          "editorMode": "code",
           "expr": "sum by(success, type) (rate(authelia_authn_second_factor{instance=~\"$instance\", banned=\"false\"}[$__rate_interval]))",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -1050,7 +1053,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
+          "editorMode": "code",
           "expr": "sum by(banned, type) (rate(authelia_authn_second_factor{instance=~\"$instance\", banned=\"true\"}[$__rate_interval]))",
           "fullMetaSearch": false,
           "hide": false,
@@ -1238,5 +1241,5 @@
   "timezone": "browser",
   "title": "Authelia Community Dashboard",
   "uid": "ddixu7wrrpuyod",
-  "version": 1
+  "version": 2
 }

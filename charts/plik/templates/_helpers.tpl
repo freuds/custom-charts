@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "ihm.name" -}}
+{{- define "plik.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "ihm.fullname" -}}
+{{- define "plik.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,37 +26,54 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "ihm.chart" -}}
+{{- define "plik.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "ihm.labels" -}}
-helm.sh/chart: {{ include "ihm.chart" . }}
-{{ include "ihm.selectorLabels" . }}
+{{- define "plik.labels" -}}
+helm.sh/chart: {{ include "plik.chart" . }}
+{{ include "plik.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- with .Values.commonLabels }}
+{{- toYaml . | nindent 0 }}
+{{- end }}
 {{- end }}
 
 {{/*
 Selector labels
 */}}
-{{- define "ihm.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "ihm.name" . }}
+{{- define "plik.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "plik.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "ihm.serviceAccountName" -}}
+{{- define "plik.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "ihm.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "plik.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
+{{- end }}
+
+{{/*
+Name of the ConfigMap holding plikd.cfg when config.existingSecret isn't set.
+*/}}
+{{- define "plik.configMapName" -}}
+{{- printf "%s-config" (include "plik.fullname" .) }}
+{{- end }}
+
+{{/*
+Name of the PVC used for the /data mount.
+*/}}
+{{- define "plik.dataClaimName" -}}
+{{- .Values.persistence.existingClaim | default (printf "%s-data" (include "plik.fullname" .)) }}
 {{- end }}

@@ -1,0 +1,148 @@
+# Default values for plik.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: rootgg/plik
+  pullPolicy: IfNotPresent
+  # -- Overrides the image tag whose default is the chart appVersion
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+# -- Additional labels to add to all resources created by this chart
+commonLabels: {}
+
+serviceAccount:
+  # -- Specifies whether a ServiceAccount should be created
+  create: true
+  annotations: {}
+  # -- The name of the ServiceAccount to use. If not set and create is true, a name is
+  # generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 8080
+
+# -- Generic Ingress, kept for portability of this chart outside its origin cluster. Clusters that
+# front services with something other than a plain Ingress controller (e.g. Traefik IngressRoute)
+# should leave this disabled and add their own routing resource alongside the release instead.
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+
+# No autoscaling knob: the sqlite metadata backend plus a ReadWriteOnce persistence claim make
+# replicaCount > 1 unsafe (concurrent writers to the same sqlite file, and a second pod can't even
+# schedule if it lands on a different node than the RWO volume). Use a real MetadataBackendConfig
+# driver (postgres/mysql) in `config` first if you need more than one replica.
+
+# -- Extra environment variables on the plik container. Plik reads config overrides from
+# PLIKD_<SCREAMING_SNAKE_FIELD_NAME> env vars for its top-level scalar settings (e.g.
+# PLIKD_ABUSE_CONTACT) -- this does NOT reach into DataBackendConfig/MetadataBackendConfig,
+# which are untyped maps only settable from plikd.cfg itself (see config.existingSecret below).
+extraEnv: []
+
+# plikd.cfg is a single TOML file, not broken out into typed values here, because a chunk of it
+# (S3 DataBackendConfig credentials) is secret and MUST come from outside git -- see docs/plik.md /
+# docs/vault.md in the mediaserver repo for how this cluster wires this up via an ExternalSecret.
+config:
+  # -- Name of an existing Secret providing plikd.cfg (key: existingSecretKey below). Takes
+  # priority over `content`. Use this whenever the config carries credentials -- ConfigMaps are
+  # not encrypted at rest, Secrets at least get RBAC-scoped access.
+  existingSecret: ""
+  existingSecretKey: plikd.cfg
+  # -- Rendered into a ConfigMap and used only when existingSecret is unset. Fine for backends with
+  # no credentials to embed (e.g. the default "file" backend below); switch to existingSecret for S3.
+  content: |
+    Debug               = false
+    DebugRequests       = false
+    LogLevel            = "INFO"
+
+    ListenPort          = 8080
+    ListenAddress       = "0.0.0.0"
+    MetricsPort         = 0
+    MetricsAddress      = "0.0.0.0"
+
+    DataBackend = "file"
+    [DataBackendConfig]
+        Directory = "/data/files"
+
+    [MetadataBackendConfig]
+        Driver = "sqlite3"
+        ConnectionString = "/data/plik.db"
+        Debug = false
+
+# -- Holds the sqlite metadata db (upload records/TTLs) and, when using the "file" DataBackend
+# above, the uploaded files themselves.
+persistence:
+  enabled: true
+  existingClaim: ""
+  storageClassName: ""
+  accessMode: ReadWriteOnce
+  size: 1Gi
+  mountPath: /data
+
+# -- Requires MetricsPort to be set to a non-zero port matching `metrics.port` in the plikd.cfg
+# supplied via `config` above -- this chart only wires up the container/Service port and (optionally)
+# the ServiceMonitor, it can't see inside an externalSecret-sourced config to confirm they match.
+metrics:
+  enabled: false
+  port: 9200
+
+serviceMonitor:
+  # -- Requires the Prometheus Operator CRDs and metrics.enabled above
+  enabled: false
+  namespace: ""
+  interval: 1m
+  path: /metrics
+  scheme: http
+  labels: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

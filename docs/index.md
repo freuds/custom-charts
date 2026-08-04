@@ -26,23 +26,17 @@
 - **Version** : 1.2.7
 - **AppVersion** : 1.0.0
 
-### ihm
-
-- **Description** : A Generic IHM Helm chart for Kubernetes
-- **Version** : 1.0.0
-- **AppVersion** : 1.16.0
-
 ### openvpn-exporter
 
 - **Description** : Prometheus OpenVPN Exporter
 - **Version** : 1.0.1
 - **AppVersion** : v0.3.2
 
-### proxy
+### plik
 
-- **Description** : A Helm chart for Ingress with ExternalName
-- **Version** : 1.1.1
-- **AppVersion** : 1.0.0
+- **Description** : Ephemeral file sharing service (root-gg/plik) with an S3-compatible object storage backend
+- **Version** : 1.0.0
+- **AppVersion** : 1.4.2
 
 ### thanos
 

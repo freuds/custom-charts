@@ -1,148 +1,85 @@
-# Prometheus SNMP Exporter
+# openvpn-exporter
 
-An Prometheus exporter that exposes information gathered from SNMP.
+![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.3.2](https://img.shields.io/badge/AppVersion-v0.3.2-informational?style=flat-square)
 
-This chart creates a [SNMP Exporter](https://github.com/prometheus/snmp_exporter) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+Prometheus OpenVPN Exporter
 
-## Prerequisites
+**Homepage:** <https://freuds.github.io/custom-charts>
 
-- Kubernetes 1.8+ with Beta APIs enabled
+## Maintainers
 
-## Add Helm repository
+| Name | Email | Url |
+| ---- | ------ | --- |
+| Freuds | <fred@freuds.fr> |  |
 
-```console
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm repo update
-```
+## Source Code
 
-_See [`helm repo`](https://helm.sh/docs/helm/helm_repo/) for command documentation._
+* <https://freuds.github.io/custom-charts>
 
-## Install Chart
+## Values
 
-```console
-helm install [RELEASE_NAME] prometheus-community/openvpn-exporter
-```
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| affinity | object | `{}` |  |
+| containerSecurityContext.readOnlyRootFilesystem | bool | `true` |  |
+| containerSecurityContext.runAsNonRoot | bool | `true` |  |
+| containerSecurityContext.runAsUser | int | `1000` |  |
+| customLabels | object | `{}` |  |
+| envFrom | list | `[]` |  |
+| extraArgs | list | `[]` |  |
+| extraInitContainers | list | `[]` |  |
+| extraVolumeMounts | list | `[]` |  |
+| extraVolumes | list | `[]` |  |
+| image.pullPolicy | string | `"IfNotPresent"` |  |
+| image.repository | string | `"openvpn_exporter"` |  |
+| image.tag | string | `""` |  |
+| imagePullSecrets | list | `[]` |  |
+| kind | string | `"Deployment"` |  |
+| livenessProbe.httpGet.path | string | `"/health"` |  |
+| livenessProbe.httpGet.port | string | `"http"` |  |
+| namespaceOverride | string | `""` |  |
+| nodeSelector | object | `{}` |  |
+| podAnnotations | object | `{}` |  |
+| rbac.create | bool | `true` |  |
+| readinessProbe.httpGet.path | string | `"/health"` |  |
+| readinessProbe.httpGet.port | string | `"http"` |  |
+| replicas | int | `1` |  |
+| resources | object | `{}` |  |
+| restartPolicy | string | `"Always"` |  |
+| revisionHistoryLimit | int | `3` |  |
+| securityContext | object | `{}` |  |
+| service.annotations | object | `{}` |  |
+| service.ipDualStack.enabled | bool | `false` |  |
+| service.ipDualStack.ipFamilies[0] | string | `"IPv6"` |  |
+| service.ipDualStack.ipFamilies[1] | string | `"IPv4"` |  |
+| service.ipDualStack.ipFamilyPolicy | string | `"PreferDualStack"` |  |
+| service.port | int | `9176` |  |
+| service.type | string | `"ClusterIP"` |  |
+| serviceAccount.create | bool | `true` |  |
+| serviceAccount.name | string | `nil` |  |
+| serviceMonitor.additionalMetricsRelabelConfigs | list | `[]` |  |
+| serviceMonitor.additionalMetricsRelabels | object | `{}` |  |
+| serviceMonitor.enabled | bool | `false` |  |
+| serviceMonitor.honorLabels | bool | `true` |  |
+| serviceMonitor.path | string | `"/metrics"` |  |
+| serviceMonitor.relabelings | list | `[]` |  |
+| serviceMonitor.scrapeTimeout | string | `"10s"` |  |
+| serviceMonitor.selector.prometheus | string | `"kube-prometheus"` |  |
+| serviceMonitor.selfMonitor.additionalMetricsRelabels | object | `{}` |  |
+| serviceMonitor.selfMonitor.additionalRelabeling | list | `[]` |  |
+| serviceMonitor.selfMonitor.enabled | bool | `false` |  |
+| serviceMonitor.selfMonitor.interval | string | `"30s"` |  |
+| serviceMonitor.selfMonitor.labels | object | `{}` |  |
+| serviceMonitor.selfMonitor.path | string | `"/metrics"` |  |
+| serviceMonitor.selfMonitor.port | string | `""` |  |
+| serviceMonitor.selfMonitor.scheme | string | `"http"` |  |
+| serviceMonitor.selfMonitor.scrapeTimeout | string | `"30s"` |  |
+| serviceMonitor.selfMonitor.tlsConfig | object | `{}` |  |
+| strategy.rollingUpdate.maxSurge | int | `1` |  |
+| strategy.rollingUpdate.maxUnavailable | int | `0` |  |
+| strategy.type | string | `"RollingUpdate"` |  |
+| tolerations | list | `[]` |  |
+| topologySpreadConstraints | list | `[]` |  |
 
-_See [configuration](#configuration) below._
-
-_See [helm install](https://helm.sh/docs/helm/helm_install/) for command documentation._
-
-## Uninstall Chart
-
-```console
-helm uninstall [RELEASE_NAME]
-```
-
-This removes all the Kubernetes components associated with the chart and deletes the release.
-
-_See [helm uninstall](https://helm.sh/docs/helm/helm_uninstall/) for command documentation._
-
-## Upgrading Chart
-
-```console
-helm upgrade [RELEASE_NAME] [CHART] --install
-```
-
-_See [helm upgrade](https://helm.sh/docs/helm/helm_upgrade/) for command documentation._
-
-### Upgrading an existing Release to a new major version
-
-A major chart version change (like v1.2.3 -> v2.0.0) indicates that there is an incompatible breaking change needing manual actions.
-
-### To 1.0.0
-
-This version allows multiple Targets to be specified when using ServiceMonitor. When you use ServiceMonitor, please rewrite below:
-
-```yaml
-serviceMonitor:
-  enabled: true
-  params:
-    enabled: true
-    conf:
-      module:
-      - if_mib
-      target:
-      - 127.0.0.1
-```
-
-to this:
-
-```yaml
-serviceMonitor:
-  enabled: true
-  params:
-  - module:
-    - if_mib
-    name: device1
-    target: 127.0.0.1
-```
-
-### To 2.0.0
-
-This version changes the `serviceMonitor.namespace` value from `monitoring` to the namespace the release is deployed to.
-
-### To 3.0.0
-
-This version upgrades openvpn-exporter version to 0.24.1, which introduces breaking change to configuration format.
-See [Module and Auth Split Migration](https://github.com/prometheus/snmp_exporter/blob/main/auth-split-migration.md) for more details.
-
-### To 4.0.0
-
-This version contain major changes & The [configmap-reload](https://github.com/jimmidyson/configmap-reload) container was replaced by the [prometheus-config-reloader](https://github.com/prometheus-operator/prometheus-operator/tree/main/cmd/prometheus-config-reloader).
-
-### To 5.0.0
-
-This version changes the default image repository from using Dockerhub to Quay.
-
-## Configuration
-
-See [Customizing the Chart Before Installing](https://helm.sh/docs/intro/using_helm/#customizing-the-chart-before-installing). To see all configurable options with detailed comments, visit the chart's [values.yaml](./values.yaml), or run these configuration commands:
-
-```console
-# Helm 2
-$ helm inspect values prometheus-community/openvpn-exporter
-
-# Helm 3
-$ helm show values prometheus-community/openvpn-exporter
-```
-
-See [prometheus/snmp_exporter/README.md](https://github.com/prometheus/snmp_exporter/) for further information.
-
-### Prometheus Configuration
-
-The snmp exporter needs to be passed the address as a parameter, this can be done with relabelling.
-
-Example config:
-
-```yaml
-scrape_configs:
-  - job_name: 'snmp'
-    static_configs:
-      - targets:
-        - 192.168.1.2  # SNMP device.
-    metrics_path: /snmp
-    params:
-      module: [if_mib]
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: __param_target
-      - source_labels: [__param_target]
-        target_label: instance
-      - target_label: __address__
-        replacement: my-service-name:9116  # The SNMP exporter's Service name and port.
-```
-
-Example configuration via a ServiceMonitor
-
-```yaml
-serviceMonitor:
-  enabled: true
-  relabelings:
-    - sourceLabels: [__param_target]
-      targetLabel: instance
-  params:
-    - module:
-        - fortigate_snmp
-      name: device1
-      target: 192.168.1.2 # SNMP device
-```
+----------------------------------------------
+Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)

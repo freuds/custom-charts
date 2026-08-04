@@ -8,7 +8,7 @@ chart-dirs:
   - gatus
   - grafana-dashboards
   - openvpn-exporter
-  - proxy
+  - plik
   - thanos
 
 chart-repos:
