@@ -3,7 +3,6 @@ remote: origin
 target-branch: main
 chart-dirs:
   - cronjob
-  - ihm
   - garage
   - gatus
   - grafana-dashboards
