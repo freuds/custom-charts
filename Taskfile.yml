@@ -17,8 +17,28 @@ tasks:
           helm dependency update "$chart_dir" || true
           helm package "$chart_dir" -d docs/
         done
+      - task: prune-archives
       - helm repo index docs/ --url "https://freuds.github.io/custom-charts/" --merge docs/index.yaml
       - task: generate-index-md
+
+  prune-archives:
+    desc: Ne garder que les 2 dernières versions de chaque archive .tgz dans docs/
+    internal: true
+    silent: true
+    cmds:
+      - |
+        cd docs
+        for chart in $(ls *.tgz 2>/dev/null | sed -E 's/-[0-9]+\.[0-9]+\.[0-9]+.*\.tgz$//' | sort -u); do
+          files=$(ls "${chart}"-*.tgz 2>/dev/null | sort -V)
+          count=$(echo "$files" | grep -c .)
+          remove=$((count - 2))
+          if [ "$remove" -gt 0 ]; then
+            echo "$files" | head -n "$remove" | while read -r old; do
+              echo "Suppression de $old"
+              rm -f "$old"
+            done
+          fi
+        done
 
   lint:
     desc: Lint Helm charts
