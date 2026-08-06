@@ -88,6 +88,9 @@ jobs:
 
   deploy-pages:
     needs: build
+    concurrency:
+      group: pages
+      cancel-in-progress: false
     if: |
       github.event_name == 'push' &&
       github.ref == 'refs/heads/main'
