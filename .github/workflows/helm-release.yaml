@@ -7,12 +7,13 @@ on:
     paths:
       - 'charts/**'
       - '.github/workflows/helm-release.yaml'
+      - 'docs/**'
   pull_request:
     branches:
       - main
     paths:
       - 'charts/**'
-
+      - 'docs/**'
 permissions:
   contents: write
 
@@ -84,3 +85,34 @@ jobs:
           commit_user_name: 'github-page'
           commit_user_email: 'github-page@users.noreply.github.com'
           commit_author: 'github-page <github-page@users.noreply.github.com>'
+
+  deploy-pages:
+    needs: build
+    if: |
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: helm-charts
+          path: docs/
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v6
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: docs/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
