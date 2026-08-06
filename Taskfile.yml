@@ -18,7 +18,11 @@ tasks:
           helm package "$chart_dir" -d docs/
         done
       - task: prune-archives
-      - helm repo index docs/ --url "https://freuds.github.io/custom-charts/" --merge docs/index.yaml
+      # Pas de --merge : prune-archives a déjà supprimé les anciens .tgz, donc
+      # reconstruire l'index uniquement à partir de ce qui reste physiquement
+      # dans docs/ évite d'accumuler des entrées fantômes (mêmes comportement
+      # que le job "build" du workflow GitHub Actions, qui ne merge pas non plus).
+      - helm repo index docs/ --url "https://freuds.github.io/custom-charts/"
       - task: generate-index-md
 
   prune-archives:

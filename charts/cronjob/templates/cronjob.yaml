@@ -1,126 +1,125 @@
 {{- $chart_name := .Chart.Name }}
 {{- $chart_version := .Chart.Version | replace "+" "_" }}
-{{- $release_name := .Release.Name }}
-
-{{- range $job := .Values.jobs }}
----
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: "{{ $job.name }}-cronjob"
+  name: "{{ .Release.Name }}-cronjob"
   labels:
     chart: "{{ $chart_name }}-{{ $chart_version }}"
 spec:
-  concurrencyPolicy: {{ $job.concurrencyPolicy | default "Allow" }}
-  failedJobsHistoryLimit: {{ $job.failedJobsHistoryLimit | default 1 }}
-  {{- if hasKey $job "startingDeadlineSeconds" }}
-  startingDeadlineSeconds: {{ $job.startingDeadlineSeconds }}
+  concurrencyPolicy: {{ .Values.concurrencyPolicy | default "Allow" }}
+  failedJobsHistoryLimit: {{ .Values.failedJobsHistoryLimit | default 1 }}
+  {{- if hasKey .Values "startingDeadlineSeconds" }}
+  startingDeadlineSeconds: {{ .Values.startingDeadlineSeconds }}
   {{- end }}
-  {{- if hasKey $job "suspend" }}
-  suspend: {{ $job.suspend }}
+  {{- if hasKey .Values "suspend" }}
+  suspend: {{ .Values.suspend }}
   {{- end }}
   jobTemplate:
     spec:
-      {{- if hasKey $job "backoffLimit" }}
-      backoffLimit: {{ $job.backoffLimit }}
+      {{- if hasKey .Values "backoffLimit" }}
+      backoffLimit: {{ .Values.backoffLimit }}
       {{- end }}
-      {{- if hasKey $job "activeDeadlineSeconds" }}
-      activeDeadlineSeconds: {{ $job.activeDeadlineSeconds }}
+      {{- if hasKey .Values "activeDeadlineSeconds" }}
+      activeDeadlineSeconds: {{ .Values.activeDeadlineSeconds }}
       {{- end }}
-      {{- if hasKey $job "ttlSecondsAfterFinished" }}
-      ttlSecondsAfterFinished: {{ $job.ttlSecondsAfterFinished }}
+      {{- if hasKey .Values "ttlSecondsAfterFinished" }}
+      ttlSecondsAfterFinished: {{ .Values.ttlSecondsAfterFinished }}
       {{- end }}
       template:
         metadata:
-          {{- with $job.podAnnotations }}
+          {{- with .Values.podAnnotations }}
           annotations:
 {{ toYaml . | indent 12 }}
           {{- end }}
           labels:
-            app: {{ $release_name }}
-            cron: {{ $job.name }}
-            {{- with $job.podLabels }}
+            app: {{ .Release.Name }}
+            cron: {{ .Release.Name }}
+            {{- with .Values.podLabels }}
 {{ toYaml . | indent 12 }}
             {{- end }}
         spec:
-        {{- if hasKey $job "serviceAccount" }}
-        {{- if hasKey $job.serviceAccount "name" }}
-          serviceAccountName: {{ $job.serviceAccount.name }}
+        {{- if hasKey .Values "serviceAccount" }}
+        {{- if hasKey .Values.serviceAccount "name" }}
+          serviceAccountName: {{ .Values.serviceAccount.name }}
         {{- else }}
-          serviceAccountName: {{ $job.name }}
+          serviceAccountName: {{ .Release.Name }}
         {{- end }}
         {{- end }}
-        {{- if hasKey $job "securityContext" }}
-          {{- if $job.securityContext.runAsUser }}
+        {{- if hasKey .Values "securityContext" }}
+          {{- if .Values.securityContext.runAsUser }}
           securityContext:
-            runAsUser: {{ $job.securityContext.runAsUser }}
-            {{- if $job.securityContext.runAsGroup }}
-            runAsGroup: {{ $job.securityContext.runAsGroup }}
+            runAsUser: {{ .Values.securityContext.runAsUser }}
+            {{- if .Values.securityContext.runAsGroup }}
+            runAsGroup: {{ .Values.securityContext.runAsGroup }}
             {{- end }}
-            {{- if $job.securityContext.fsGroup }}
-            fsGroup: {{ $job.securityContext.fsGroup }}
+            {{- if .Values.securityContext.fsGroup }}
+            fsGroup: {{ .Values.securityContext.fsGroup }}
             {{- end }}
           {{- end }}
         {{- end }}
-          {{- with $job.imagePullSecrets }}
+          {{- with .Values.imagePullSecrets }}
           imagePullSecrets:
 {{ toYaml . | indent 12 }}
           {{- end }}
-          {{- with $job.priorityClassName }}
+          {{- with .Values.priorityClassName }}
           priorityClassName: {{ . }}
           {{- end }}
+          {{- with .Values.initContainers }}
+          initContainers:
+{{ toYaml . | indent 10 }}
+          {{- end }}
           containers:
-          - image: "{{ $job.image.repository }}:{{ $job.image.tag }}"
-            imagePullPolicy: {{ $job.image.imagePullPolicy | default "IfNotPresent" }}
-            name: {{ $job.name }}
-            {{- with $job.containerSecurityContext }}
+          - image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+            imagePullPolicy: {{ .Values.image.imagePullPolicy | default "IfNotPresent" }}
+            name: {{ .Release.Name }}
+            {{- with .Values.containerSecurityContext }}
             securityContext:
 {{ toYaml . | indent 14 }}
             {{- end }}
-            {{- with $job.env }}
+            {{- with .Values.env }}
             env:
 {{ toYaml . | indent 12 }}
             {{- end }}
-            {{- with $job.envFrom }}
+            {{- with .Values.envFrom }}
             envFrom:
 {{ toYaml . | indent 12 }}
             {{- end }}
-            {{- with $job.command }}
+            {{- with .Values.command }}
             command:
 {{ toYaml . | indent 12 }}
             {{- end }}
-            {{- with $job.args }}
+            {{- with .Values.args }}
             args:
 {{ toYaml . | indent 12 }}
             {{- end }}
-            {{- with $job.resources }}
+            {{- with .Values.resources }}
             resources:
 {{ toYaml . | indent 14 }}
             {{- end }}
-            {{- with $job.volumeMounts }}
+            {{- with .Values.volumeMounts }}
             volumeMounts:
 {{ toYaml . | indent 12 }}
             {{- end }}
-          {{- with $job.nodeSelector }}
+          {{- with .Values.nodeSelector }}
           nodeSelector:
 {{ toYaml . | indent 12 }}
           {{- end }}
-          {{- with $job.affinity }}
+          {{- with .Values.affinity }}
           affinity:
 {{ toYaml . | indent 12 }}
           {{- end }}
-          {{- with $job.tolerations }}
+          {{- with .Values.tolerations }}
           tolerations:
 {{ toYaml . | indent 12 }}
           {{- end }}
-          restartPolicy: {{ $job.restartPolicy | default "OnFailure" }}
-          {{- with $job.volumes }}
+          restartPolicy: {{ .Values.restartPolicy | default "OnFailure" }}
+          {{- with .Values.volumes }}
           volumes:
 {{ toYaml . | indent 12 }}
           {{- end }}
-  schedule: {{ $job.schedule | quote }}
-  {{- with $job.timeZone }}
+  schedule: {{ .Values.schedule | quote }}
+  {{- with .Values.timeZone }}
   timeZone: {{ . | quote }}
   {{- end }}
-  successfulJobsHistoryLimit: {{ $job.successfulJobsHistoryLimit | default 3 }}
-{{- end }}
+  successfulJobsHistoryLimit: {{ .Values.successfulJobsHistoryLimit | default 3 }}
