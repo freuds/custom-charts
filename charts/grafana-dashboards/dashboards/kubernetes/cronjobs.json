@@ -25,7 +25,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 248,
+  "id": 229,
   "links": [],
   "panels": [
     {
@@ -399,7 +399,9 @@
       },
       "id": 8,
       "options": {
-        "displayLabels": [],
+        "displayLabels": [
+          "value"
+        ],
         "legend": {
           "displayMode": "table",
           "placement": "right",
@@ -436,7 +438,7 @@
           "hide": false,
           "instant": false,
           "interval": "",
-          "legendFormat": "{{﻿label_cronjob_owner}}",
+          "legendFormat": "{{job_name}} {{﻿label_cronjob_owner}}",
           "refId": "Failed"
         },
         {
@@ -464,12 +466,16 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "Time": true
+              "Time": true,
+              "Value #Failed": false
             },
+            "includeByName": {},
             "indexByName": {},
             "renameByName": {
               "Value #A": "Success",
-              "Value #B": "Fail"
+              "Value #B": "Fail",
+              "Value #Failed": "Failed",
+              "Value #Succeeded": "Succeeded"
             }
           }
         }
@@ -808,26 +814,26 @@
         "y": 8
       },
       "id": 22,
+      "interval": "15s",
       "maxPerRow": 6,
       "options": {
         "displayLabels": [],
         "legend": {
-          "displayMode": "list",
+          "calcs": [],
+          "displayMode": "table",
           "placement": "right",
-          "showLegend": false,
-          "values": [
-            "value",
-            "percent"
-          ]
+          "showLegend": true,
+          "values": []
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": [],
-          "fields": "/^Value$/",
-          "values": true
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
         "sort": "desc",
-        "text": {},
         "tooltip": {
           "hideZeros": false,
           "mode": "single",
@@ -842,7 +848,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum by (owner_name)\n(\n  kube_job_complete{namespace=\"$namespace\"} + on (job_name)\n\n  group_left(owner_name)\n\n  (group by (job_name,owner_name) (kube_job_owner{owner_name=\"$cronjob\"}))\n  \n)",
+          "expr": "sum by (owner_name)\n(\n  kube_job_complete{namespace=\"$namespace\"} + on (job_name)\n  group_left(owner_name)\n  (group by (job_name,owner_name) (kube_job_owner{owner_name=\"$cronjob\"}))\n)",
           "format": "table",
           "hide": false,
           "instant": false,
@@ -854,8 +860,9 @@
           "datasource": {
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum by (owner_name)\n(\n  kube_job_failed{namespace=\"$namespace\"} + on (job_name)\n\n  group_left(owner_name)\n\n  (group by (job_name,owner_name) (kube_job_owner{owner_name=\"$cronjob\"}))\n  \n)",
+          "expr": "sum by (owner_name)\n(\n  kube_job_failed{namespace=\"$namespace\"} + on (job_name)\n  group_left(owner_name)\n  (group by (job_name,owner_name) (kube_job_owner{owner_name=\"$cronjob\"}))\n)",
           "format": "table",
           "hide": false,
           "instant": false,
@@ -867,15 +874,23 @@
       "title": "$cronjob status",
       "transformations": [
         {
+          "id": "merge",
+          "options": {}
+        },
+        {
           "id": "organize",
           "options": {
             "excludeByName": {
-              "Time": true
+              "Time": true,
+              "owner_name": true
             },
+            "includeByName": {},
             "indexByName": {},
             "renameByName": {
               "Value #A": "Success",
-              "Value #B": "Fail"
+              "Value #B": "Fail",
+              "Value #Failed": "Failed",
+              "Value #Succeeded": "Succeeded"
             }
           }
         }

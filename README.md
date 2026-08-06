@@ -9,9 +9,8 @@ Ce dépôt contient des charts Helm personnalisés, packagés et publiés automa
   - `cronjob/` : Chart Helm pour déployer des CronJobs Kubernetes
   - `gatus/` : Chart Helm pour déployer [Gatus](https://github.com/TwiN/gatus) webservice
   - `grafana-dashboards/` : Chart Helm pour déployer des dashboards Grafana en tant que ConfigMaps
-  - `ihm/` : Chart Helm pour des webservices génériques
+  - `plik/` : Chart Helm pour déployer [Plik](https://github.com/root-gg/plik) webservice
   - `openvpn-exporter/` : Chart Helm pour exporter les métriques OpenVPN à Prometheus
-  - `proxy/` : Chart Helm pour déployer un Ingress multi-ProxyPass
   - `ct.yaml` : Configuration Chart Testing (lint, validation)
   - `lintconf.yaml` : Règles de lint YAML
 - `docs/` : Contient les packages Helm générés (`.tgz`) et l'index du repo Helm (`index.yaml`)
