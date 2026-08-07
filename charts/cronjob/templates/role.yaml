@@ -1,0 +1,33 @@
+{{- if (.Values.rbac).role }}
+{{- if .Values.rbac.role.create }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ .Values.rbac.role.name | default (printf "%s-role" .Release.Name) }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Release.Name }}
+rules:
+{{ toYaml .Values.rbac.role.rules | indent 2 }}
+{{- end }}
+{{- end }}
+---
+{{- if (.Values.rbac).roleBinding }}
+{{- if .Values.rbac.roleBinding.create }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ .Values.rbac.roleBinding.name | default (printf "%s-role-binding" .Release.Name) }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Release.Name }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ .Values.rbac.role.name | default (printf "%s-role" .Release.Name) }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ (.Values.serviceAccount).name | default .Release.Name }}
+    namespace: {{ .Release.Namespace }}
+{{- end }}
+{{- end }}

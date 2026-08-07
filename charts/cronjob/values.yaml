@@ -64,10 +64,12 @@ args:
 #   annotations:
 #     eks.amazonaws.com/role-arn: "arn:aws:iam::123456789:role/backup"
 
-# optional cluster-wide RBAC, both disabled by default -- typically needed
-# by tools that must read resources across namespaces (e.g. a cluster
-# resource-usage scanner). clusterRoleBinding always binds to the job's
-# ServiceAccount (serviceAccount.name, or .Release.Name if unset).
+# optional RBAC, all disabled by default. clusterRole/clusterRoleBinding are
+# cluster-scoped (e.g. a tool that must read resources across namespaces);
+# role/roleBinding are namespaced to .Release.Namespace (e.g. a container
+# that only needs to read pod logs in its own namespace). Both pairs bind to
+# the same ServiceAccount (serviceAccount.name, or .Release.Name if unset)
+# and can be enabled together.
 # rbac:
 #   clusterRole:
 #     create: true
@@ -79,6 +81,16 @@ args:
 #   clusterRoleBinding:
 #     create: true
 #     # name: my-app-cluster-role-binding
+#   role:
+#     create: true
+#     # name: my-app-role                # default: "<release-name>-role"
+#     rules:
+#       - apiGroups: [""]
+#         resources: ["pods", "pods/log"]
+#         verbs: ["get", "list"]
+#   roleBinding:
+#     create: true
+#     # name: my-app-role-binding
 
 # pod-level security context
 # securityContext:

@@ -5,7 +5,7 @@
 ### cronjob
 
 - **Description** : A Helm chart for cronjob Kubernetes
-- **Version** : 2.0.0
+- **Version** : 2.1.0
 - **AppVersion** : 0.1.3
 
 ### garage
@@ -23,7 +23,7 @@
 ### grafana-dashboards
 
 - **Description** : A Helm chart for deploying Grafana Dashboards as configMap in Kubernetes
-- **Version** : 1.3.2
+- **Version** : 1.3.3
 - **AppVersion** : 1.0.0
 
 ### openvpn-exporter
