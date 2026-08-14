@@ -23,7 +23,7 @@
 ### grafana-dashboards
 
 - **Description** : A Helm chart for deploying Grafana Dashboards as configMap in Kubernetes
-- **Version** : 1.3.5
+- **Version** : 1.3.6
 - **AppVersion** : 1.0.0
 
 ### openvpn-exporter

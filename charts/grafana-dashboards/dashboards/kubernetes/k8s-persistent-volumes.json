@@ -20,7 +20,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 231,
+  "id": 333,
   "links": [],
   "panels": [
     {
@@ -895,6 +895,88 @@
     {
       "datasource": {
         "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 0.8
+              },
+              {
+                "color": "red",
+                "value": 0.9
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
+      "id": 30,
+      "interval": "5m",
+      "options": {
+        "displayMode": "gradient",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "12.3.1",
+      "targets": [
+        {
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "max by (node,cluster, namespace, persistentvolumeclaim) (\n  kubelet_volume_stats_used_bytes{job=\"kubelet\", namespace=~\"${k8s_namespace:regex}\"}\n)\n/\nmax by (node,cluster, namespace, persistentvolumeclaim) (\n  kubelet_volume_stats_capacity_bytes{job=\"kubelet\", namespace=~\"${k8s_namespace:regex}\"}\n)",
+          "format": "time_series",
+          "instant": true,
+          "legendFormat": "{{persistentvolumeclaim}}",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "Used Bytes",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
         "uid": "${datasource}"
       },
       "fieldConfig": {
@@ -927,7 +1009,7 @@
         "h": 5,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 32
       },
       "id": 7,
       "options": {
@@ -1027,7 +1109,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 27
+        "y": 37
       },
       "id": 15,
       "panels": [],
@@ -1036,7 +1118,8 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
       },
       "fieldConfig": {
         "defaults": {
@@ -1099,17 +1182,16 @@
         "h": 12,
         "w": 24,
         "x": 0,
-        "y": 28
+        "y": 38
       },
       "id": 9,
+      "interval": "5m",
       "options": {
         "alertThreshold": true,
         "legend": {
           "calcs": [
-            "mean",
             "lastNotNull",
-            "max",
-            "min"
+            "max"
           ],
           "displayMode": "table",
           "placement": "right",
@@ -1127,9 +1209,11 @@
           "datasource": {
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "(max by (persistentvolumeclaim,namespace) (kubelet_volume_stats_used_bytes{namespace=~\"${k8s_namespace}\"}))",
+          "editorMode": "code",
+          "expr": "(max by (persistentvolumeclaim,namespace) (kubelet_volume_stats_used_bytes{job=\"kubelet\",namespace=~\"${k8s_namespace}\"}))",
           "interval": "",
           "legendFormat": "{{namespace}} ({{persistentvolumeclaim}})",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1137,125 +1221,321 @@
       "type": "timeseries"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 40
+        "y": 50
       },
       "id": 19,
-      "panels": [
-        {
-          "datasource": {
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 41
-          },
-          "id": 11,
-          "options": {
-            "alertThreshold": true
-          },
-          "pluginVersion": "7.2.1",
-          "targets": [
-            {
-              "datasource": {
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "expr": "rate(kubelet_volume_stats_used_bytes{namespace=~\"${k8s_namespace}\"}[1h])",
-              "instant": false,
-              "interval": "",
-              "legendFormat": "{{namespace}} ({{persistentvolumeclaim}})",
-              "refId": "A"
-            }
-          ],
-          "title": "Hourly Volume Usage Rate",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 48
-          },
-          "id": 12,
-          "options": {
-            "alertThreshold": true
-          },
-          "pluginVersion": "7.2.1",
-          "targets": [
-            {
-              "datasource": {
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "expr": "rate(kubelet_volume_stats_used_bytes{namespace=~\"${k8s_namespace}\"}[1d])",
-              "interval": "",
-              "legendFormat": "{{namespace}} ({{persistentvolumeclaim}})",
-              "refId": "A"
-            }
-          ],
-          "title": "Daily Volume Usage Rate",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 55
-          },
-          "id": 13,
-          "options": {
-            "alertThreshold": true
-          },
-          "pluginVersion": "7.2.1",
-          "targets": [
-            {
-              "datasource": {
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "expr": "rate(kubelet_volume_stats_used_bytes{namespace=~\"${k8s_namespace}\"}[1w])",
-              "instant": false,
-              "interval": "",
-              "legendFormat": "{{namespace}} ({{persistentvolumeclaim}})",
-              "refId": "A"
-            }
-          ],
-          "title": "Weekly Volume Usage Rate",
-          "type": "timeseries"
-        }
-      ],
+      "panels": [],
       "title": "Usage Rate",
       "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 51
+      },
+      "id": 11,
+      "interval": "1h",
+      "options": {
+        "alertThreshold": true,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "width": 300
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "max by (node,persistentvolumeclaim) (deriv(kubelet_volume_stats_used_bytes{job=\"kubelet\", namespace=~\"${k8s_namespace}\"}[1d])) * 3600",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "{{node}} {{namespace}} ({{persistentvolumeclaim}})",
+          "refId": "A"
+        }
+      ],
+      "title": "Hourly Volume Usage Rate",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 59
+      },
+      "id": 12,
+      "options": {
+        "alertThreshold": true,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "width": 300
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "max by (node,persistentvolumeclaim) (deriv(kubelet_volume_stats_used_bytes{job=\"kubelet\", namespace=~\"${k8s_namespace}\"}[1d])) * 86400",
+          "interval": "",
+          "legendFormat": "{{node}} ({{persistentvolumeclaim}})",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Daily Volume Usage Rate",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 66
+      },
+      "id": 13,
+      "options": {
+        "alertThreshold": true,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "width": 300
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "max by (node,persistentvolumeclaim) (deriv(kubelet_volume_stats_used_bytes{job=\"kubelet\", namespace=~\"${k8s_namespace}\"}[1w])) * 604800",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "{{node}} ({{persistentvolumeclaim}})",
+          "refId": "A"
+        }
+      ],
+      "title": "Weekly Volume Usage Rate",
+      "type": "timeseries"
     }
   ],
   "preload": false,
