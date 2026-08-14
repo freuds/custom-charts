@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 181,
+  "id": 300,
   "links": [],
   "panels": [
     {
@@ -37,7 +37,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P1809F7CD0C75ACF3"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -314,7 +314,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P1809F7CD0C75ACF3"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -415,7 +415,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P1809F7CD0C75ACF3"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -599,7 +599,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -616,7 +616,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "process_virtual_memory_bytes{job=\"$job\"}",
@@ -648,7 +648,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P1809F7CD0C75ACF3"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -832,7 +832,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "topk(5, max(scrape_duration_seconds) by (job))",
@@ -851,7 +851,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P1809F7CD0C75ACF3"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -962,7 +962,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
+            "uid": "${datasource}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1061,7 +1061,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
+            "uid": "${datasource}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1177,7 +1177,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P1809F7CD0C75ACF3"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1262,7 +1262,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "slsP58b7z"
+            "uid": "${datasource}"
           },
           "expr": "rate(prometheus_engine_query_duration_seconds_count{job=~\"$job\",instance=~\"$instance\",slice=\"inner_eval\"}[5m])",
           "format": "time_series",
@@ -1276,7 +1276,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P1809F7CD0C75ACF3"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1382,12 +1382,14 @@
   "templating": {
     "list": [
       {
+        "allowCustomValue": false,
         "current": {
           "text": "default",
           "value": "default"
         },
+        "hide": 2,
         "includeAll": false,
-        "label": "Data source",
+        "label": "datasource",
         "name": "datasource",
         "options": [],
         "query": "prometheus",
@@ -1457,5 +1459,5 @@
   "timezone": "utc",
   "title": "Prometheus / Overview",
   "uid": "edmhcjadaze2oe",
-  "version": 2
+  "version": 1
 }

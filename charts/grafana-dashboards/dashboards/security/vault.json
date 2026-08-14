@@ -91,7 +91,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "up{job=\"vault-internal\"}",
+          "expr": "up{job=\"vault\"}",
           "format": "time_series",
           "interval": "",
           "legendFormat": "{{ instance }}",
@@ -1807,7 +1807,7 @@
       {
         "current": {
           "text": "prometheus",
-          "value": "P1809F7CD0C75ACF3"
+          "value": "Prometheus"
         },
         "name": "datasource",
         "options": [],
@@ -1822,14 +1822,14 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "label_values(up{job=\"vault-internal\"}, instance)",
+        "definition": "label_values(up{job=\"vault\"}, instance)",
         "includeAll": false,
         "label": "Host:",
         "name": "node",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(up{job=\"vault-internal\"}, instance)",
+          "query": "label_values(up{job=\"vault\"}, instance)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
@@ -1843,14 +1843,14 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "label_values(up{job=\"vault-internal\",instance=~\"$node:(.*)\"}, instance)",
+        "definition": "label_values(up{job=\"vault\",instance=~\"$node:(.*)\"}, instance)",
         "hide": 2,
         "includeAll": false,
         "name": "port",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(up{job=\"vault-internal\",instance=~\"$node:(.*)\"}, instance)",
+          "query": "label_values(up{job=\"vault\",instance=~\"$node:(.*)\"}, instance)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,

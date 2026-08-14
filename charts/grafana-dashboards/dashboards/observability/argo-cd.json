@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 250,
+  "id": 285,
   "links": [],
   "panels": [
     {
@@ -4596,7 +4596,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P1809F7CD0C75ACF3"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -4681,7 +4681,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
+            "uid": "${datasource}"
           },
           "expr": "sum(increase(argocd_redis_request_total{namespace=~\"$namespace\"}[$interval])) by (failed)",
           "refId": "A"
@@ -4694,14 +4694,18 @@
   "preload": false,
   "refresh": "",
   "schemaVersion": 42,
-  "tags": [],
+  "tags": [
+    "ArgoCD"
+  ],
   "templating": {
     "list": [
       {
+        "allowCustomValue": false,
         "current": {
           "text": "Prometheus",
           "value": "Prometheus"
         },
+        "hide": 2,
         "includeAll": false,
         "name": "datasource",
         "options": [],
@@ -4712,6 +4716,7 @@
       },
       {
         "allValue": ".*",
+        "allowCustomValue": false,
         "current": {},
         "datasource": "$datasource",
         "definition": "label_values(kube_pod_info, namespace)",
@@ -4816,15 +4821,15 @@
       {
         "allValue": ".*",
         "current": {},
-        "datasource": "$datasource",
-        "definition": "label_values(argocd_cluster_info, server)",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "definition": "",
         "includeAll": true,
         "name": "cluster",
         "options": [],
-        "query": {
-          "query": "label_values(argocd_cluster_info, server)",
-          "refId": "Prometheus-cluster-Variable-Query"
-        },
+        "query": "",
         "refresh": 1,
         "regex": "",
         "sort": 1,
