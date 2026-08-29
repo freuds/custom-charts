@@ -47,6 +47,9 @@ query:
   replicaCount: 1
   logLevel: info
 
+  # -- Pod-level dnsConfig (e.g. {options: [{name: ndots, value: "1"}]})
+  dnsConfig: {}
+
   # -- Extra `--endpoint` targets, in addition to sidecarDiscoveryService and the in-chart store gateway
   extraStores: []
 
@@ -74,6 +77,9 @@ storegateway:
   replicaCount: 1
   logLevel: info
 
+  # -- Pod-level dnsConfig (e.g. {options: [{name: ndots, value: "1"}]})
+  dnsConfig: {}
+
   service:
     httpPort: 10902
     grpcPort: 10901
@@ -97,6 +103,9 @@ compactor:
   # same bucket.
   enabled: true
   logLevel: info
+
+  # -- Pod-level dnsConfig (e.g. {options: [{name: ndots, value: "1"}]})
+  dnsConfig: {}
 
   retention:
     # -- How long raw-resolution blocks are kept in the bucket

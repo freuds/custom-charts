@@ -17,6 +17,10 @@ spec:
         {{- include "labels.componentSelectorLabels" (dict "context" $ "component" "query") | nindent 8 }}
     spec:
       serviceAccountName: {{ include "names.serviceAccountName" . }}
+      {{- with .Values.query.dnsConfig }}
+      dnsConfig:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
