@@ -23,7 +23,7 @@
 ### grafana-dashboards
 
 - **Description** : A Helm chart for deploying Grafana Dashboards as configMap in Kubernetes
-- **Version** : 1.3.7
+- **Version** : 1.3.9
 - **AppVersion** : 1.0.0
 
 ### openvpn-exporter
@@ -41,7 +41,7 @@
 ### thanos
 
 - **Description** : Thanos Query, Store Gateway and Compactor for long-term Prometheus storage on S3-compatible object storage
-- **Version** : 0.1.1
+- **Version** : 0.1.2
 - **AppVersion** : v0.42.4
 
 ## Utilisation du repo Helm
