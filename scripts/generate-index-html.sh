@@ -98,6 +98,14 @@ cat > "$tmp" <<EOF
   .badge.app { background: var(--code-bg); color: var(--muted); }
   .desc { margin: 0; color: var(--muted); flex: 1; }
   .links { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; }
+  .usage {
+    margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border);
+  }
+  .usage h2 { margin: 0 0 12px; font-size: 19px; }
+  .usage ol { margin: 0; padding-left: 20px; }
+  .usage li { margin-bottom: 16px; }
+  .usage li p { margin: 0 0 8px; }
+  .usage .cmd + .cmd { margin-top: 8px; }
   footer { margin-top: 32px; color: var(--muted); font-size: 13px; }
 </style>
 </head>
@@ -157,6 +165,29 @@ while IFS=$'\t' read -r name version app desc icon url home source; do
 done
 
 cat >> "$tmp" <<EOF
+  </section>
+
+  <section class="usage">
+    <h2>Utiliser ce repo Helm</h2>
+    <ol>
+      <li>
+        <p>Ajouter le repo et récupérer son index :</p>
+        <div class="cmd"><code>helm repo add ${REPO_NAME} ${REPO_URL}</code><button type="button">Copier</button></div>
+        <div class="cmd"><code>helm repo update ${REPO_NAME}</code><button type="button">Copier</button></div>
+      </li>
+      <li>
+        <p>Lister les charts et leurs versions disponibles :</p>
+        <div class="cmd"><code>helm search repo ${REPO_NAME} --versions</code><button type="button">Copier</button></div>
+      </li>
+      <li>
+        <p>Consulter les valeurs par défaut d'un chart avant de le personnaliser :</p>
+        <div class="cmd"><code>helm show values ${REPO_NAME}/&lt;chart&gt; &gt; values.yaml</code><button type="button">Copier</button></div>
+      </li>
+      <li>
+        <p>Installer ou mettre à jour un chart avec ses valeurs :</p>
+        <div class="cmd"><code>helm upgrade --install &lt;release&gt; ${REPO_NAME}/&lt;chart&gt; --version &lt;version&gt; -n &lt;namespace&gt; --create-namespace -f values.yaml</code><button type="button">Copier</button></div>
+      </li>
+    </ol>
   </section>
 
   <footer>
