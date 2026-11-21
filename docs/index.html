@@ -70,7 +70,7 @@
   <p class="subtitle">Repo Helm : 7 charts disponibles</p>
 
   <section class="setup">
-    <div class="cmd"><code>helm repo add custom-charts https://freuds.github.io/custom-charts &amp;&amp; helm repo update</code><button type="button">Copier</button></div>
+    <div class="cmd"><code>helm repo add custom-charts https://freuds.github.io/custom-charts &amp;&amp; helm repo update</code><button type="button" title="Copier" aria-label="Copier">📋</button></div>
   </section>
 
   <section class="grid">
@@ -86,7 +86,7 @@
         </div>
       </div>
       <p class="desc">A Helm chart for cronjob Kubernetes</p>
-      <div class="cmd"><code>helm install cronjob custom-charts/cronjob --version 2.1.0</code><button type="button">Copier</button></div>
+      <div class="cmd"><code>helm install cronjob custom-charts/cronjob --version 2.1.0</code><button type="button" title="Copier" aria-label="Copier">📋</button></div>
     </article>
     <article class="card">
       <div class="head">
@@ -100,7 +100,7 @@
         </div>
       </div>
       <p class="desc">S3-compatible object store for small self-hosted geo-distributed deployments</p>
-      <div class="cmd"><code>helm install garage custom-charts/garage --version 0.9.3</code><button type="button">Copier</button></div>
+      <div class="cmd"><code>helm install garage custom-charts/garage --version 0.9.3</code><button type="button" title="Copier" aria-label="Copier">📋</button></div>
     </article>
     <article class="card">
       <div class="head">
@@ -114,7 +114,7 @@
         </div>
       </div>
       <p class="desc">Automated service health dashboard</p>
-      <div class="cmd"><code>helm install gatus custom-charts/gatus --version 1.3.0</code><button type="button">Copier</button></div>
+      <div class="cmd"><code>helm install gatus custom-charts/gatus --version 1.3.0</code><button type="button" title="Copier" aria-label="Copier">📋</button></div>
     </article>
     <article class="card">
       <div class="head">
@@ -128,7 +128,7 @@
         </div>
       </div>
       <p class="desc">A Helm chart for deploying Grafana Dashboards as configMap in Kubernetes</p>
-      <div class="cmd"><code>helm install grafana-dashboards custom-charts/grafana-dashboards --version 1.3.11</code><button type="button">Copier</button></div>
+      <div class="cmd"><code>helm install grafana-dashboards custom-charts/grafana-dashboards --version 1.3.11</code><button type="button" title="Copier" aria-label="Copier">📋</button></div>
     </article>
     <article class="card">
       <div class="head">
@@ -142,7 +142,7 @@
         </div>
       </div>
       <p class="desc">Prometheus OpenVPN Exporter</p>
-      <div class="cmd"><code>helm install openvpn-exporter custom-charts/openvpn-exporter --version 1.0.1</code><button type="button">Copier</button></div>
+      <div class="cmd"><code>helm install openvpn-exporter custom-charts/openvpn-exporter --version 1.0.1</code><button type="button" title="Copier" aria-label="Copier">📋</button></div>
     </article>
     <article class="card">
       <div class="head">
@@ -156,7 +156,7 @@
         </div>
       </div>
       <p class="desc">Ephemeral file sharing service (root-gg/plik) with an S3-compatible object storage backend</p>
-      <div class="cmd"><code>helm install plik custom-charts/plik --version 1.0.0</code><button type="button">Copier</button></div>
+      <div class="cmd"><code>helm install plik custom-charts/plik --version 1.0.0</code><button type="button" title="Copier" aria-label="Copier">📋</button></div>
     </article>
     <article class="card">
       <div class="head">
@@ -170,7 +170,7 @@
         </div>
       </div>
       <p class="desc">Thanos Query, Store Gateway and Compactor for long-term Prometheus storage on S3-compatible object storage</p>
-      <div class="cmd"><code>helm install thanos custom-charts/thanos --version 0.1.3</code><button type="button">Copier</button></div>
+      <div class="cmd"><code>helm install thanos custom-charts/thanos --version 0.1.3</code><button type="button" title="Copier" aria-label="Copier">📋</button></div>
     </article>
   </section>
 
@@ -183,8 +183,8 @@
     btn.addEventListener("click", function () {
       var text = btn.previousElementSibling.textContent;
       navigator.clipboard.writeText(text).then(function () {
-        btn.textContent = "Copié";
-        setTimeout(function () { btn.textContent = "Copier"; }, 1500);
+        btn.textContent = "✅";
+        setTimeout(function () { btn.textContent = "📋"; }, 1500);
       }).catch(function () {});
     });
   });

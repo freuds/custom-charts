@@ -106,7 +106,7 @@ cat > "$tmp" <<EOF
   <p class="subtitle">Repo Helm : ${chart_count} charts disponibles</p>
 
   <section class="setup">
-    <div class="cmd"><code>helm repo add ${REPO_NAME} ${REPO_URL} &amp;&amp; helm repo update</code><button type="button">Copier</button></div>
+    <div class="cmd"><code>helm repo add ${REPO_NAME} ${REPO_URL} &amp;&amp; helm repo update</code><button type="button" title="Copier" aria-label="Copier">📋</button></div>
   </section>
 
   <section class="grid">
@@ -141,7 +141,7 @@ while IFS=$'\t' read -r name version app desc icon; do
     echo '        </div>'
     echo '      </div>'
     echo "      <p class=\"desc\">${d}</p>"
-    echo "      <div class=\"cmd\"><code>helm install ${n} ${REPO_NAME}/${n} --version ${v}</code><button type=\"button\">Copier</button></div>"
+    echo "      <div class=\"cmd\"><code>helm install ${n} ${REPO_NAME}/${n} --version ${v}</code><button type=\"button\" title=\"Copier\" aria-label=\"Copier\">📋</button></div>"
     echo '    </article>'
   } >> "$tmp"
 done
@@ -158,8 +158,8 @@ cat >> "$tmp" <<EOF
     btn.addEventListener("click", function () {
       var text = btn.previousElementSibling.textContent;
       navigator.clipboard.writeText(text).then(function () {
-        btn.textContent = "Copié";
-        setTimeout(function () { btn.textContent = "Copier"; }, 1500);
+        btn.textContent = "✅";
+        setTimeout(function () { btn.textContent = "📋"; }, 1500);
       }).catch(function () {});
     });
   });
