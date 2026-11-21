@@ -100,7 +100,7 @@ jobs:
       id-token: write
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.deployment_retry.outputs.page_url }}
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v8
@@ -116,6 +116,19 @@ jobs:
         with:
           path: docs/
 
+      # L'artefact "github-pages" tout juste uploadé n'est parfois pas encore
+      # visible par l'API (« No artifacts named "github-pages" were found »).
+      # On tolère un premier échec, on attend, puis on retente une fois.
       - name: Deploy to GitHub Pages
         id: deployment
+        continue-on-error: true
+        uses: actions/deploy-pages@v5
+
+      - name: Wait before retrying deployment
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 30
+
+      - name: Deploy to GitHub Pages (retry)
+        id: deployment_retry
+        if: steps.deployment.outcome == 'failure'
         uses: actions/deploy-pages@v5
