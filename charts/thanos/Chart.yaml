@@ -2,10 +2,10 @@ apiVersion: v2
 name: thanos
 description: Thanos Query, Store Gateway and Compactor for long-term Prometheus storage on S3-compatible object storage
 type: application
-version: 0.1.2
+version: 0.1.3
 appVersion: "v0.42.4"
 home: https://thanos.io/
-icon: https://raw.githubusercontent.com/thanos-io/thanos/main/website/static/img/logo.svg
+icon: https://raw.githubusercontent.com/thanos-io/thanos/df1f3f3d5e72769dc639cb6006a7972b168672ce/website/static/icon-light.png
 
 keywords:
 - prometheus

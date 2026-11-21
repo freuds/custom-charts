@@ -3,7 +3,7 @@ entries:
   cronjob:
   - apiVersion: v2
     appVersion: 0.1.3
-    created: "2026-11-21T20:57:46.217864+01:00"
+    created: "2026-11-21T23:17:59.831233+01:00"
     description: A Helm chart for cronjob Kubernetes
     digest: b138aea9cb84e7e23dbe7f493ef847fdfc4fecde9923651658ad00a40b6c56a1
     home: https://freuds.github.io/custom-charts/
@@ -22,7 +22,7 @@ entries:
     version: 2.1.0
   - apiVersion: v2
     appVersion: 0.1.3
-    created: "2026-11-21T20:57:46.215627+01:00"
+    created: "2026-11-21T23:17:59.830222+01:00"
     description: A Helm chart for cronjob Kubernetes
     digest: ee666a33c2fb21697613f4607f0a18f58650b9b244ea9d3631506f2fa5f4a718
     home: https://freuds.github.io/custom-charts/
@@ -42,7 +42,7 @@ entries:
   garage:
   - apiVersion: v2
     appVersion: v2.3.0
-    created: "2026-11-21T20:57:46.220084+01:00"
+    created: "2026-11-21T23:17:59.832477+01:00"
     description: S3-compatible object store for small self-hosted geo-distributed
       deployments
     digest: 340d30378f49dc1f0310577b32ef6cffa417e618e8062f0ee9cc69a5cd259c27
@@ -62,7 +62,7 @@ entries:
   gatus:
   - apiVersion: v2
     appVersion: v5.18.1
-    created: "2026-11-21T20:57:46.222219+01:00"
+    created: "2026-11-21T23:17:59.833598+01:00"
     description: Automated service health dashboard
     digest: bcf55c39269e2ab341adace8c2a26a4102b0e64ca01a1e5946495bae41af8fc1
     home: https://github.com/TwiN/gatus
@@ -85,7 +85,7 @@ entries:
   grafana-dashboards:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2026-11-21T20:57:46.230471+01:00"
+    created: "2026-11-21T23:17:59.839256+01:00"
     description: A Helm chart for deploying Grafana Dashboards as configMap in Kubernetes
     digest: b6022cd04e7ff4baa4ddf8359baa903c2153effc3d0141bf6ba2a0d0cc79227b
     home: https://freuds.github.io/custom-charts
@@ -105,7 +105,7 @@ entries:
     version: 1.3.11
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2026-11-21T20:57:46.226367+01:00"
+    created: "2026-11-21T23:17:59.836375+01:00"
     description: A Helm chart for deploying Grafana Dashboards as configMap in Kubernetes
     digest: 6bdd13b76fd206b38014b384b1608efb04f474f7eaf37f7c7a9e7444b23bf171
     home: https://freuds.github.io/custom-charts
@@ -126,7 +126,7 @@ entries:
   openvpn-exporter:
   - apiVersion: v2
     appVersion: v0.3.2
-    created: "2026-11-21T20:57:46.23433+01:00"
+    created: "2026-11-21T23:17:59.841505+01:00"
     description: Prometheus OpenVPN Exporter
     digest: 7377a6a00c7c687c9c1abb1de883ceec3507bb1e8cea7697596076dcd1b60fba
     home: https://freuds.github.io/custom-charts
@@ -147,7 +147,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: v0.3.2
-    created: "2026-11-21T20:57:46.232238+01:00"
+    created: "2026-11-21T23:17:59.840381+01:00"
     description: Prometheus SNMP Exporter
     digest: a7a89e8ca3e98d305e3284589b35154c7e2965c61e06ec5ee72eea39894417d3
     home: https://freuds.github.io/custom-charts
@@ -169,7 +169,7 @@ entries:
   plik:
   - apiVersion: v2
     appVersion: 1.4.2
-    created: "2026-11-21T20:57:46.236502+01:00"
+    created: "2026-11-21T23:17:59.842945+01:00"
     description: Ephemeral file sharing service (root-gg/plik) with an S3-compatible
       object storage backend
     digest: 6c8235777741ce95b34dd87bd72254f183f32f748948af73eb3378e2f7dca798
@@ -189,7 +189,27 @@ entries:
   thanos:
   - apiVersion: v2
     appVersion: v0.42.4
-    created: "2026-11-21T20:57:46.240845+01:00"
+    created: "2026-11-21T23:17:59.845147+01:00"
+    description: Thanos Query, Store Gateway and Compactor for long-term Prometheus
+      storage on S3-compatible object storage
+    digest: 233958db28ce61a7510c9de97ac133829327058a802985d3da359f2558b538b2
+    home: https://thanos.io/
+    icon: https://raw.githubusercontent.com/thanos-io/thanos/df1f3f3d5e72769dc639cb6006a7972b168672ce/website/static/icon-light.png
+    keywords:
+    - prometheus
+    - long-term-storage
+    - object-storage
+    - monitoring
+    name: thanos
+    sources:
+    - https://github.com/thanos-io/thanos
+    type: application
+    urls:
+    - https://freuds.github.io/custom-charts/thanos-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: v0.42.4
+    created: "2026-11-21T23:17:59.843734+01:00"
     description: Thanos Query, Store Gateway and Compactor for long-term Prometheus
       storage on S3-compatible object storage
     digest: 24bf70a46f870689c2a8edd9877df026984d319e9f1f689553d69eee7d5111b4
@@ -207,24 +227,4 @@ entries:
     urls:
     - https://freuds.github.io/custom-charts/thanos-0.1.2.tgz
     version: 0.1.2
-  - apiVersion: v2
-    appVersion: v0.42.4
-    created: "2026-11-21T20:57:46.238602+01:00"
-    description: Thanos Query, Store Gateway and Compactor for long-term Prometheus
-      storage on S3-compatible object storage
-    digest: d4a8920bc7e95dae956fd7def38f4d6569cc7b8d8509f53a3ac1d5b396522aa5
-    home: https://thanos.io/
-    icon: https://raw.githubusercontent.com/thanos-io/thanos/main/website/static/img/logo.svg
-    keywords:
-    - prometheus
-    - long-term-storage
-    - object-storage
-    - monitoring
-    name: thanos
-    sources:
-    - https://github.com/thanos-io/thanos
-    type: application
-    urls:
-    - https://freuds.github.io/custom-charts/thanos-0.1.1.tgz
-    version: 0.1.1
-generated: "2026-11-21T20:57:46.212926+01:00"
+generated: "2026-11-21T23:17:59.829202+01:00"
