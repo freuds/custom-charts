@@ -61,15 +61,6 @@
   }
   .badge.app { background: var(--code-bg); color: var(--muted); }
   .desc { margin: 0; color: var(--muted); flex: 1; }
-  .links { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; }
-  .usage {
-    margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border);
-  }
-  .usage h2 { margin: 0 0 12px; font-size: 19px; }
-  .usage ol { margin: 0; padding-left: 20px; }
-  .usage li { margin-bottom: 16px; }
-  .usage li p { margin: 0 0 8px; }
-  .usage .cmd + .cmd { margin-top: 8px; }
   footer { margin-top: 32px; color: var(--muted); font-size: 13px; }
 </style>
 </head>
@@ -96,11 +87,6 @@
       </div>
       <p class="desc">A Helm chart for cronjob Kubernetes</p>
       <div class="cmd"><code>helm install cronjob custom-charts/cronjob --version 2.1.0</code><button type="button">Copier</button></div>
-      <div class="links">
-        <a href="https://freuds.github.io/custom-charts/cronjob-2.1.0.tgz">Télécharger .tgz</a>
-        <a href="https://freuds.github.io/custom-charts/">Home</a>
-        <a href="https://freuds.github.io/custom-charts">Sources</a>
-      </div>
     </article>
     <article class="card">
       <div class="head">
@@ -115,11 +101,6 @@
       </div>
       <p class="desc">S3-compatible object store for small self-hosted geo-distributed deployments</p>
       <div class="cmd"><code>helm install garage custom-charts/garage --version 0.9.3</code><button type="button">Copier</button></div>
-      <div class="links">
-        <a href="https://freuds.github.io/custom-charts/garage-0.9.3.tgz">Télécharger .tgz</a>
-        <a href="https://garagehq.deuxfleurs.fr/">Home</a>
-        <a href="https://git.deuxfleurs.fr/Deuxfleurs/garage.git">Sources</a>
-      </div>
     </article>
     <article class="card">
       <div class="head">
@@ -134,11 +115,6 @@
       </div>
       <p class="desc">Automated service health dashboard</p>
       <div class="cmd"><code>helm install gatus custom-charts/gatus --version 1.3.0</code><button type="button">Copier</button></div>
-      <div class="links">
-        <a href="https://freuds.github.io/custom-charts/gatus-1.3.0.tgz">Télécharger .tgz</a>
-        <a href="https://github.com/TwiN/gatus">Home</a>
-        <a href="https://github.com/TwiN/helm-charts">Sources</a>
-      </div>
     </article>
     <article class="card">
       <div class="head">
@@ -153,10 +129,6 @@
       </div>
       <p class="desc">A Helm chart for deploying Grafana Dashboards as configMap in Kubernetes</p>
       <div class="cmd"><code>helm install grafana-dashboards custom-charts/grafana-dashboards --version 1.3.11</code><button type="button">Copier</button></div>
-      <div class="links">
-        <a href="https://freuds.github.io/custom-charts/grafana-dashboards-1.3.11.tgz">Télécharger .tgz</a>
-        <a href="https://freuds.github.io/custom-charts">Home</a>
-      </div>
     </article>
     <article class="card">
       <div class="head">
@@ -171,10 +143,6 @@
       </div>
       <p class="desc">Prometheus OpenVPN Exporter</p>
       <div class="cmd"><code>helm install openvpn-exporter custom-charts/openvpn-exporter --version 1.0.1</code><button type="button">Copier</button></div>
-      <div class="links">
-        <a href="https://freuds.github.io/custom-charts/openvpn-exporter-1.0.1.tgz">Télécharger .tgz</a>
-        <a href="https://freuds.github.io/custom-charts">Home</a>
-      </div>
     </article>
     <article class="card">
       <div class="head">
@@ -189,10 +157,6 @@
       </div>
       <p class="desc">Ephemeral file sharing service (root-gg/plik) with an S3-compatible object storage backend</p>
       <div class="cmd"><code>helm install plik custom-charts/plik --version 1.0.0</code><button type="button">Copier</button></div>
-      <div class="links">
-        <a href="https://freuds.github.io/custom-charts/plik-1.0.0.tgz">Télécharger .tgz</a>
-        <a href="https://github.com/root-gg/plik">Home</a>
-      </div>
     </article>
     <article class="card">
       <div class="head">
@@ -207,35 +171,7 @@
       </div>
       <p class="desc">Thanos Query, Store Gateway and Compactor for long-term Prometheus storage on S3-compatible object storage</p>
       <div class="cmd"><code>helm install thanos custom-charts/thanos --version 0.1.3</code><button type="button">Copier</button></div>
-      <div class="links">
-        <a href="https://freuds.github.io/custom-charts/thanos-0.1.3.tgz">Télécharger .tgz</a>
-        <a href="https://thanos.io/">Home</a>
-        <a href="https://github.com/thanos-io/thanos">Sources</a>
-      </div>
     </article>
-  </section>
-
-  <section class="usage">
-    <h2>Utiliser ce repo Helm</h2>
-    <ol>
-      <li>
-        <p>Ajouter le repo et récupérer son index :</p>
-        <div class="cmd"><code>helm repo add custom-charts https://freuds.github.io/custom-charts</code><button type="button">Copier</button></div>
-        <div class="cmd"><code>helm repo update custom-charts</code><button type="button">Copier</button></div>
-      </li>
-      <li>
-        <p>Lister les charts et leurs versions disponibles :</p>
-        <div class="cmd"><code>helm search repo custom-charts --versions</code><button type="button">Copier</button></div>
-      </li>
-      <li>
-        <p>Consulter les valeurs par défaut d'un chart avant de le personnaliser :</p>
-        <div class="cmd"><code>helm show values custom-charts/&lt;chart&gt; &gt; values.yaml</code><button type="button">Copier</button></div>
-      </li>
-      <li>
-        <p>Installer ou mettre à jour un chart avec ses valeurs :</p>
-        <div class="cmd"><code>helm upgrade --install &lt;release&gt; custom-charts/&lt;chart&gt; --version &lt;version&gt; -n &lt;namespace&gt; --create-namespace -f values.yaml</code><button type="button">Copier</button></div>
-      </li>
-    </ol>
   </section>
 
   <footer>
