@@ -15,7 +15,7 @@ on:
       - 'charts/**'
       - 'docs/**'
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build:
@@ -50,41 +50,6 @@ jobs:
           name: helm-charts
           path: docs/
           retention-days: 1
-
-  publish:
-    needs: build
-    if: |
-      github.event_name == 'push' &&
-      github.ref == 'refs/heads/main' &&
-      github.actor == 'github-page' &&
-      contains(github.event.head_commit.message, 'Merge pull request')
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
-
-      - name: Download artifacts
-        uses: actions/download-artifact@v8
-        with:
-          name: helm-charts
-          path: docs/
-
-      - name: Configure Git
-        run: |
-          git config --global user.name 'github-page'
-          git config --global user.email 'github-page@users.noreply.github.com'
-
-      - name: Commit and push changes
-        uses: stefanzweifel/git-auto-commit-action@v7
-        with:
-          commit_message: 'ci: package helm charts and update index.yaml [skip ci]'
-          branch: main
-          file_pattern: 'docs/*'
-          commit_user_name: 'github-page'
-          commit_user_email: 'github-page@users.noreply.github.com'
-          commit_author: 'github-page <github-page@users.noreply.github.com>'
 
   deploy-pages:
     needs: build
