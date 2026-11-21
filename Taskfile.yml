@@ -24,6 +24,13 @@ tasks:
       # que le job "build" du workflow GitHub Actions, qui ne merge pas non plus).
       - helm repo index docs/ --url "https://freuds.github.io/custom-charts/"
       - task: generate-index-md
+      - task: generate-index-html
+
+  generate-index-html:
+    desc: Générer la page d'accueil docs/index.html à partir de docs/index.yaml
+    silent: true
+    cmds:
+      - ./scripts/generate-index-html.sh docs/index.yaml docs/index.html
 
   prune-archives:
     desc: Ne garder que les 2 dernières versions de chaque archive .tgz dans docs/

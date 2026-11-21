@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>custom-charts</title>
+<meta name="description" content="Repo Helm custom-charts : 7 charts disponibles.">
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --text: #1d2330; --muted: #5d6676;
+    --border: #e2e5ea; --accent: #0f62d6; --code-bg: #eef1f5; --badge-bg: #e6eefb;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #11141a; --card: #1a1e26; --text: #e6e9ef; --muted: #9aa3b2;
+      --border: #2a303b; --accent: #6ea8ff; --code-bg: #232833; --badge-bg: #1f2c44;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 1080px; margin: 0 auto; padding: 32px 16px 48px; }
+  h1 { margin: 0 0 4px; font-size: 28px; }
+  .subtitle { margin: 0 0 24px; color: var(--muted); }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .cmd {
+    display: flex; align-items: center; gap: 8px; background: var(--code-bg);
+    border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px;
+  }
+  .cmd code {
+    flex: 1; min-width: 0; overflow-wrap: anywhere;
+    font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .cmd button {
+    flex: none; border: 1px solid var(--border); background: var(--card); color: var(--text);
+    border-radius: 6px; padding: 2px 8px; font-size: 12px; cursor: pointer;
+  }
+  .setup { margin-bottom: 32px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); gap: 16px; }
+  .card {
+    display: flex; flex-direction: column; gap: 12px; background: var(--card);
+    border: 1px solid var(--border); border-radius: 12px; padding: 16px; min-width: 0;
+  }
+  .head { display: flex; align-items: center; gap: 12px; }
+  .icon {
+    width: 40px; height: 40px; flex: none; border-radius: 8px; object-fit: contain;
+    background: #ffffff; border: 1px solid var(--border); padding: 4px;
+  }
+  .icon.fallback {
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; color: var(--accent); text-transform: uppercase;
+  }
+  .head h2 { margin: 0; font-size: 17px; overflow-wrap: anywhere; }
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+  .badge {
+    font-size: 12px; padding: 1px 8px; border-radius: 999px;
+    background: var(--badge-bg); color: var(--accent);
+  }
+  .badge.app { background: var(--code-bg); color: var(--muted); }
+  .desc { margin: 0; color: var(--muted); flex: 1; }
+  .links { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; }
+  footer { margin-top: 32px; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>custom-charts</h1>
+  <p class="subtitle">Repo Helm : 7 charts disponibles</p>
+
+  <section class="setup">
+    <div class="cmd"><code>helm repo add custom-charts https://freuds.github.io/custom-charts &amp;&amp; helm repo update</code><button type="button">Copier</button></div>
+  </section>
+
+  <section class="grid">
+    <article class="card">
+      <div class="head">
+        <img class="icon" src="https://freuds.github.io/custom-charts/imgs/cronjob.png" alt="" loading="lazy" data-initial="c">
+        <div>
+          <h2>cronjob</h2>
+          <div class="badges">
+            <span class="badge">v2.1.0</span>
+            <span class="badge app">app 0.1.3</span>
+          </div>
+        </div>
+      </div>
+      <p class="desc">A Helm chart for cronjob Kubernetes</p>
+      <div class="cmd"><code>helm install cronjob custom-charts/cronjob --version 2.1.0</code><button type="button">Copier</button></div>
+      <div class="links">
+        <a href="https://freuds.github.io/custom-charts/cronjob-2.1.0.tgz">Télécharger .tgz</a>
+        <a href="https://freuds.github.io/custom-charts/">Home</a>
+        <a href="https://freuds.github.io/custom-charts">Sources</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="head">
+        <img class="icon" src="https://garagehq.deuxfleurs.fr/images/garage-logo.svg" alt="" loading="lazy" data-initial="g">
+        <div>
+          <h2>garage</h2>
+          <div class="badges">
+            <span class="badge">v0.9.3</span>
+            <span class="badge app">app v2.3.0</span>
+          </div>
+        </div>
+      </div>
+      <p class="desc">S3-compatible object store for small self-hosted geo-distributed deployments</p>
+      <div class="cmd"><code>helm install garage custom-charts/garage --version 0.9.3</code><button type="button">Copier</button></div>
+      <div class="links">
+        <a href="https://freuds.github.io/custom-charts/garage-0.9.3.tgz">Télécharger .tgz</a>
+        <a href="https://garagehq.deuxfleurs.fr/">Home</a>
+        <a href="https://git.deuxfleurs.fr/Deuxfleurs/garage.git">Sources</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="head">
+        <img class="icon" src="https://raw.githubusercontent.com/TwiN/gatus/a1c8422c2ff2b9d0a6f184c99e4dc728d3f2cd75/web/static/logo-192x192.png" alt="" loading="lazy" data-initial="g">
+        <div>
+          <h2>gatus</h2>
+          <div class="badges">
+            <span class="badge">v1.3.0</span>
+            <span class="badge app">app v5.18.1</span>
+          </div>
+        </div>
+      </div>
+      <p class="desc">Automated service health dashboard</p>
+      <div class="cmd"><code>helm install gatus custom-charts/gatus --version 1.3.0</code><button type="button">Copier</button></div>
+      <div class="links">
+        <a href="https://freuds.github.io/custom-charts/gatus-1.3.0.tgz">Télécharger .tgz</a>
+        <a href="https://github.com/TwiN/gatus">Home</a>
+        <a href="https://github.com/TwiN/helm-charts">Sources</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="head">
+        <img class="icon" src="https://freuds.github.io/custom-charts/imgs/grafana-dashboards.png" alt="" loading="lazy" data-initial="g">
+        <div>
+          <h2>grafana-dashboards</h2>
+          <div class="badges">
+            <span class="badge">v1.3.11</span>
+            <span class="badge app">app 1.0.0</span>
+          </div>
+        </div>
+      </div>
+      <p class="desc">A Helm chart for deploying Grafana Dashboards as configMap in Kubernetes</p>
+      <div class="cmd"><code>helm install grafana-dashboards custom-charts/grafana-dashboards --version 1.3.11</code><button type="button">Copier</button></div>
+      <div class="links">
+        <a href="https://freuds.github.io/custom-charts/grafana-dashboards-1.3.11.tgz">Télécharger .tgz</a>
+        <a href="https://freuds.github.io/custom-charts">Home</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="head">
+        <img class="icon" src="https://freuds.github.io/custom-charts/imgs/openvpn-exporter.png" alt="" loading="lazy" data-initial="o">
+        <div>
+          <h2>openvpn-exporter</h2>
+          <div class="badges">
+            <span class="badge">v1.0.1</span>
+            <span class="badge app">app v0.3.2</span>
+          </div>
+        </div>
+      </div>
+      <p class="desc">Prometheus OpenVPN Exporter</p>
+      <div class="cmd"><code>helm install openvpn-exporter custom-charts/openvpn-exporter --version 1.0.1</code><button type="button">Copier</button></div>
+      <div class="links">
+        <a href="https://freuds.github.io/custom-charts/openvpn-exporter-1.0.1.tgz">Télécharger .tgz</a>
+        <a href="https://freuds.github.io/custom-charts">Home</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="head">
+        <img class="icon" src="https://freuds.github.io/custom-charts/imgs/plik.png" alt="" loading="lazy" data-initial="p">
+        <div>
+          <h2>plik</h2>
+          <div class="badges">
+            <span class="badge">v1.0.0</span>
+            <span class="badge app">app 1.4.2</span>
+          </div>
+        </div>
+      </div>
+      <p class="desc">Ephemeral file sharing service (root-gg/plik) with an S3-compatible object storage backend</p>
+      <div class="cmd"><code>helm install plik custom-charts/plik --version 1.0.0</code><button type="button">Copier</button></div>
+      <div class="links">
+        <a href="https://freuds.github.io/custom-charts/plik-1.0.0.tgz">Télécharger .tgz</a>
+        <a href="https://github.com/root-gg/plik">Home</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="head">
+        <img class="icon" src="https://raw.githubusercontent.com/thanos-io/thanos/main/website/static/img/logo.svg" alt="" loading="lazy" data-initial="t">
+        <div>
+          <h2>thanos</h2>
+          <div class="badges">
+            <span class="badge">v0.1.2</span>
+            <span class="badge app">app v0.42.4</span>
+          </div>
+        </div>
+      </div>
+      <p class="desc">Thanos Query, Store Gateway and Compactor for long-term Prometheus storage on S3-compatible object storage</p>
+      <div class="cmd"><code>helm install thanos custom-charts/thanos --version 0.1.2</code><button type="button">Copier</button></div>
+      <div class="links">
+        <a href="https://freuds.github.io/custom-charts/thanos-0.1.2.tgz">Télécharger .tgz</a>
+        <a href="https://thanos.io/">Home</a>
+        <a href="https://github.com/thanos-io/thanos">Sources</a>
+      </div>
+    </article>
+  </section>
+
+  <footer>
+    Index : <a href="index.yaml">index.yaml</a> · généré le 2026-11-21
+  </footer>
+</main>
+<script>
+  document.querySelectorAll(".cmd button").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var text = btn.previousElementSibling.textContent;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = "Copié";
+        setTimeout(function () { btn.textContent = "Copier"; }, 1500);
+      }).catch(function () {});
+    });
+  });
+  document.querySelectorAll("img.icon").forEach(function (img) {
+    img.addEventListener("error", function () {
+      var fallback = document.createElement("div");
+      fallback.className = "icon fallback";
+      fallback.setAttribute("aria-hidden", "true");
+      fallback.textContent = img.dataset.initial || "";
+      img.replaceWith(fallback);
+    });
+  });
+</script>
+</body>
+</html>

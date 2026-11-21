@@ -83,7 +83,11 @@ jobs:
 
       # L'artefact "github-pages" tout juste uploadé n'est parfois pas encore
       # visible par l'API (« No artifacts named "github-pages" were found »).
-      # On tolère un premier échec, on attend, puis on retente une fois.
+      # On laisse d'abord le temps à l'API de le voir, puis on tolère un
+      # premier échec, on attend et on retente une fois.
+      - name: Wait for Pages artifact to be visible
+        run: sleep 15
+
       - name: Deploy to GitHub Pages
         id: deployment
         continue-on-error: true
